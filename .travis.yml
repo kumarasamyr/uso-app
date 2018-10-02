@@ -8,11 +8,6 @@ before_install:
   npm config set shrinkwrap false
   npm install -g @vue/cli
 install:
-  if [[ -d node_modules ]]; then
-    npm prune
-    npm rebuild
-  else
-    npm install
-  fi
+  -  if [[ -d node_modules ]] ; then npm prune ; npm rebuild ; else npm install ; fi
 script:
   - npm run build
