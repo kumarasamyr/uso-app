@@ -5,9 +5,9 @@ cache:
   directories:
     - node_modules
 before_install:
-  npm config set shrinkwrap false
-  npm install -g @vue/cli
+  - npm config set shrinkwrap false
+  - npm install -g @vue/cli
 install:
-  -  if [[ -d node_modules ]] ; then npm prune ; npm rebuild ; else npm install ; fi
+  -  npm install
 script:
   - npm run build
