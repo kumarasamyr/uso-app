@@ -1,71 +1,63 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      persistent
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      enable-resize-watcher
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
     <v-toolbar
+      color="secondary"
+      height="70px"
+      dark
       app
-      :clipped-left="clipped"
     >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon v-html="miniVariant ? 'fas fa-chevron-right' : 'fas fa-chevron-left'"></v-icon>
+      <v-btn :color="(fab!='home')?'grey':'white'" :fab="fab=='home'" light :icon="fab!='home'"  @click.stop="fab = 'home'">
+        <v-badge right color="red">
+          <v-icon color="secondary">fa-home</v-icon>
+        </v-badge>
       </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>fas fa-globe</v-icon>
+      <v-btn :color="(fab!='globe')?'grey':'white'" :fab="fab=='globe'" light :icon="fab!='globe'"  @click.stop="fab = 'globe'">
+        <v-icon color="secondary">fas fa-globe</v-icon>
       </v-btn>
       <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>fas fa-minus</v-icon>
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>fas fa-bars</v-icon>
-      </v-btn>
     </v-toolbar>
-    <v-content>
+    <v-content color="secondary">
       <router-view/>
     </v-content>
-    <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-      fixed
+    
+    <v-card>
+    <v-bottom-nav
+      :active.sync="bottomNav"
+      :value="true"
+      color="secondary"
+      absolute
       app
     >
-      <v-list>
-        <v-list-tile @click="right = !right">
-          <v-list-tile-action>
-            <v-icon>fas fa-exchange-alt</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
-    </v-footer>
+      <v-btn dark>
+        <span>Bookmarks</span>
+        <v-icon>fa-bookmark</v-icon>
+      </v-btn>
+
+      <v-btn dark>
+        <span>Notifications</span>
+        <v-badge fab color="primary">
+          <span slot="badge">99</span>
+          <v-icon>fa-bell</v-icon>
+        </v-badge>
+      </v-btn>
+
+      <v-btn dark>
+        <span>Games</span>
+        <v-icon>fa-gamepad</v-icon>
+      </v-btn>
+
+      <v-btn dark>
+        <span>Settings</span>
+        <v-icon>fa-user-cog</v-icon>
+      </v-btn>
+
+    </v-bottom-nav>
+  </v-card>
+
   </v-app>
 </template>
 
@@ -75,6 +67,7 @@ export default {
   name: 'App',
   data () {
     return {
+      fab: "home",
       clipped: false,
       drawer: true,
       fixed: false,
@@ -85,8 +78,21 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Vuetify.js',
+      bottomNav: 0
+    }
+  },
+  computed: {
+    color () {
+      switch (this.bottomNav) {
+        case 0: return 'primary'
+        case 1: return 'primary'
+        case 2: return 'brown'
+        case 3: return 'indigo'
+      }
     }
   }
 }
 </script>
+<style scoped>
+</style>

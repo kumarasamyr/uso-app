@@ -9,6 +9,9 @@ import {
   VIcon,
   VGrid,
   VToolbar,
+  VCard,
+  VBottomNav,
+  VBadge,
   transitions
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
@@ -23,11 +26,14 @@ Vue.use(Vuetify, {
     VIcon,
     VGrid,
     VToolbar,
+    VCard,
+    VBottomNav,
+    VBadge,
     transitions
   },
   theme: {
-    primary: '#ee44aa',
-    secondary: '#424242',
+    primary: '#bb133e',
+    secondary: '#002147',
     accent: '#82B1FF',
     error: '#FF5252',
     info: '#2196F3',
