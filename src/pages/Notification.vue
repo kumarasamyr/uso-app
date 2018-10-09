@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
-    <h1>This is an notification page</h1>
+  <div>
+    <h1>This is notification page</h1>
   </div>
 </template>

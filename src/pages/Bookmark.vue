@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
-    <h1>This is an bookmarks page</h1>
+  <div>
+    <h1>This is bookmarks page</h1>
   </div>
 </template>
