@@ -39,6 +39,21 @@ export default new Router({
       name: 'setting',
       component: () => import('./pages/Setting.vue')
     },
+    {
+      path: '/agenda',
+      name: 'agenda',
+      component: () => import('./pages/Session/Agenda/Agenda.vue')
+    },
+    {
+      path: '/session-info',
+      name: 'session-info',
+      component: () => import('./pages/Session/SessionInfo/SessionInfo.vue')
+    },
+    {
+      path: '/my-events',
+      name: 'my-events',
+      component: () => import('./pages/Events/EventList.vue')
+    }
 
   ]
 })
