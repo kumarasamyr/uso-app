@@ -7,17 +7,19 @@
         >
         </v-img>
         <v-flex xs12 offset-xs1>
-            <h2>Warrior Reset</h2>
+            <h2>{{event.name}}</h2>
         </v-flex>
         <v-flex xs12 offset-xs1>
-            <p>Warrior Reset Description</p>
+            <p>{{event.description}}</p>
         </v-flex>
         <v-flex xs12 offset-xs1>
-            <h3>Date</h3>
+            <h3>{{event.startDate}}</h3>
         </v-flex>
     </v-card>
 </template>
 
 <script>
-export default {};
+export default {
+    props: ['event']
+};
 </script>
