@@ -4,8 +4,8 @@
       :active.sync="bottomNav"
       :value="true"
       color="secondary"
-      absolute
       app
+      fixed
     >
       <v-btn dark to="/bookmark">
         <span>Bookmarks</span>
