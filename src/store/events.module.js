@@ -14,16 +14,9 @@ const actions = {
     }
 }
 
-const getters = {
-    selectedEvent: state => {
-        return state.selectedEvent;
-    }
-}
-
 export const events = {
     namespaced: true,
     state,
     mutations,
-    actions,
-    getters
+    actions
 }

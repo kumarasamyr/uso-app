@@ -42,6 +42,15 @@ class Service {
             data: body
         })
     }
+
+    delete(path, body) {
+        return this.service.request({
+            method: 'DELETE',
+            url: path,
+            responseType:'json',
+            data: body
+        })
+    }
 }
 
 let instance = new Service();

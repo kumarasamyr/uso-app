@@ -38,8 +38,10 @@
         methods: {
             ...mapActions('events',['selectEvent']),
             fetchEvents() {
-                eventsService.getEvents(this.user).then(res => {
-                    this.events = res["body"].eventList
+                //TODO: change to make service handle parameter object parsing
+                eventsService.getEvents(this.user.id).then(res => {
+                    console.log(res)
+                    this.events = res['data']
                 })
             },
             clickEvent(event) {

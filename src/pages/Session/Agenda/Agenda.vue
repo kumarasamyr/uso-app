@@ -3,9 +3,9 @@
         fluid
         grid-list-lg
       >
-        <v-layout row wrap>
+        <v-layout v-for="session in sessions" :key="session.sessionId" row wrap>
           <v-flex xs12>
-            <SessionCard></SessionCard>
+            <SessionCard :session="session" :event="selectedEvent" ></SessionCard>
           </v-flex>
         </v-layout>
       </v-container>
@@ -13,6 +13,8 @@
 
 <script>
   import SessionCard from './SessionCard.vue'
+  import { mapState } from 'vuex'
+  import { sessionsService } from '../../../services'
   
   export default {
     data() {
@@ -20,11 +22,21 @@
         sessions: []
       }
     },
+    computed: {
+      ...mapState('events', [('selectedEvent')])
+    },
     created() {
-      console.log('get selected event from store, pass to session service, service will return all sessions for that event, update this.sessions here')
+      this.fetchSessions()
     },
     components: {
       SessionCard
+    },
+    methods: {
+      fetchSessions() {
+        sessionsService.getSessions(this.selectedEvent.eventId).then(res => {
+          this.sessions = res["body"].sessionList
+        })
+      }
     }
   }
 </script>
