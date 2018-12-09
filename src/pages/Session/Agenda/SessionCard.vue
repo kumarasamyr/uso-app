@@ -57,7 +57,7 @@ export default {
     },
 
     created() {
-        this.fetchLikes(),
+        this.fetchLikes()
         this.fetchBookmarks()
     },
 
@@ -90,11 +90,11 @@ export default {
                 type: activityType
             }
              if (this.activityState[activityType]) {
-                 activityService.updateActivity(this.user, this.event, details).then(res => {
+                 activityService.undoActivity(this.user, this.event, details).then(res => {
                      toggleActivity(activityType)
                  })
              } else {
-                 activityService.undoActivity(this.user, this.event, details).then(res => {
+                 activityService.updateActivity(this.user, this.event, details).then(res => {
                      toggleActivity(activityType)
                  })
              }

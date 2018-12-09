@@ -5,7 +5,7 @@
       >
         <v-layout v-for="session in sessions" :key="session.sessionId" row wrap>
           <v-flex xs12>
-            <SessionCard :session="session" :event="selectedEvent" ></SessionCard>
+            <SessionCard :session="session" :event="selectedEvent" v-on:click="selectSession(session)" ></SessionCard>
           </v-flex>
         </v-layout>
       </v-container>
@@ -32,10 +32,15 @@
       SessionCard
     },
     methods: {
+      ...mapActions('sessions',['selectSession']),
       fetchSessions() {
-        sessionsService.getSessions(this.selectedEvent.eventId).then(res => {
-          this.sessions = res["body"].sessionList
+        sessionsService.getSessions(this.selectedEvent.id).then(res => {
+          this.sessions = res['data']
         })
+      },
+      selectSession(session) {
+        this.selectSession(session)
+        this.$router.push({ path: 'session-info' })
       }
     }
   }

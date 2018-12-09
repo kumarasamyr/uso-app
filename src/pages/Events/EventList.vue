@@ -40,7 +40,6 @@
             fetchEvents() {
                 //TODO: change to make service handle parameter object parsing
                 eventsService.getEvents(this.user.id).then(res => {
-                    console.log(res)
                     this.events = res['data']
                 })
             },
