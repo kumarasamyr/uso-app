@@ -5,6 +5,7 @@ export const eventsService = {
     getEvents
 }
 
-function getEvents(user) {
-    return request.get(CONFIG.api.events + `/${user}/events?status=OPEN`)
+//get all events user is subscribed to
+function getEvents(userId) {
+    return request.get(CONFIG.api.events + `/${userId}/events?status=OPEN`)
 }

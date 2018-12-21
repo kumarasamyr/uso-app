@@ -1,6 +1,9 @@
 import {userService} from '../services';
 
 const user = JSON.parse(localStorage.getItem('user'));
+// const user = {
+//     id: '1'
+// }
 const state = user
     ? { status: { loggedIn: true }, user }
     : { status: {}, user: null };
