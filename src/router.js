@@ -52,14 +52,28 @@ export default new Router({
     {
       path: '/my-events',
       name: 'my-events',
-      component: () => import('./pages/Events/EventList.vue')
+      component: () => import('./pages/events/EventList.vue')
+    },
+    {
+      path: '/events',
+      name: 'events',
+      component: () => import('./pages/events/EventsHome.vue')
+    },
+    {
+      path: '/eventdetails/:id',
+      name: 'eventdetails',
+      component: () => import('./pages/events/EventsDetails.vue')
+      },
+    {
+      path: '/events/feedback',
+      name: 'feedback',
+      component: () => import('./pages/events/Feedback.vue')
     },
     {
       path: '/faq',
       name: 'faq',
       component: () => import('./pages/Info/Faq.vue')
     }
-
-    
+   
   ]
 })
