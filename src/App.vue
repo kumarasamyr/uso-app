@@ -15,6 +15,9 @@
       <v-btn :color="(fab!='globe')?'grey':'white'" :fab="fab=='globe'" light :icon="fab!='globe'"  @click.stop="fab = 'globe'">
         <v-icon color="secondary">fas fa-globe</v-icon>
       </v-btn>
+      <v-btn icon to="/info">
+              <v-icon> fa-info</v-icon>
+      </v-btn>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <img class="" height="55px" src="./assets/uso-logo.svg"/>

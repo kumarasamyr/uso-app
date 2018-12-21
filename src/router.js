@@ -53,7 +53,13 @@ export default new Router({
       path: '/my-events',
       name: 'my-events',
       component: () => import('./pages/Events/EventList.vue')
+    },
+    {
+      path: '/faq',
+      name: 'faq',
+      component: () => import('./pages/Info/Faq.vue')
     }
 
+    
   ]
 })
