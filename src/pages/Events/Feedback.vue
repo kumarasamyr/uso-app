@@ -12,6 +12,7 @@
 
 <script>
 import axios from "axios";
+
 import eventTitle from "../../components/EventTitle";
 
 export default {
@@ -20,17 +21,23 @@ export default {
       posts: []
     };
   },
+
   created() {
     axios
+
       .get(`http://jsonplaceholder.typicode.com/posts`)
+
       .then(response => {
         // JSON responses are automatically parsed.
+
         this.posts = response.data;
       })
+
       .catch(e => {
         this.errors.push(e);
       });
   },
+
   components: {
     eventTitle
   }

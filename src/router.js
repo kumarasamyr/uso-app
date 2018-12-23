@@ -63,12 +63,12 @@ export default new Router({
     {
       path: "/events",
       name: "events",
-      component: () => import("./pages/Events/EventsHome.vue")
+      component: () => import("./pages/Events/EventHome.vue")
     },
     {
       path: "/eventdetails/:id",
       name: "eventdetails",
-      component: () => import("./pages/Events/EventsDetails.vue")
+      component: () => import("./pages/Events/EventDetails.vue")
     },
     {
       path: "/events/feedback",
