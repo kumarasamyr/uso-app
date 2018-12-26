@@ -9,8 +9,8 @@ const mutations = {
 }
 
 const actions = {
-    selectEvent({commit, state}, event) {
-        commit('selectEvent', state, event)
+    selectEvent({commit}, event) {
+        commit('selectEvent', event)
     }
 }
 

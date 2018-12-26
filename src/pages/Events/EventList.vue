@@ -3,9 +3,9 @@
         fluid
         grid-list-lg
       >
-        <v-layout v-for="event in events" :key="event.eventId" row wrap>
+        <v-layout v-for="event in events" :key="event.event_id" row wrap>
             <v-flex xs12>
-                <EventCard v-bind:event="event" v-on:click="clickEvent(event)"></EventCard>
+                <EventCard v-bind:event="event" @click.native="clickEvent(event)"></EventCard>
             </v-flex>
         </v-layout>
       </v-container>
@@ -45,8 +45,7 @@
             },
             clickEvent(event) {
                 this.selectEvent(event)
-                //TODO: change to actual path once event home page has been created
-                this.$router.push({ path: 'eventHome' })
+                this.$router.push({ path: 'eventdetails' })
             }
         }
     };

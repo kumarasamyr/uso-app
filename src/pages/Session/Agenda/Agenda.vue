@@ -13,7 +13,7 @@
 
 <script>
   import SessionCard from './SessionCard.vue'
-  import { mapState } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
   import { sessionsService } from '../../../services'
   
   export default {
@@ -34,7 +34,7 @@
     methods: {
       ...mapActions('sessions',['selectSession']),
       fetchSessions() {
-        sessionsService.getSessions(this.selectedEvent.id).then(res => {
+        sessionsService.getSessions(this.selectedEvent.event_id).then(res => {
           this.sessions = res['data']
         })
       },

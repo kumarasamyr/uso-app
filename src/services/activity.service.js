@@ -9,8 +9,7 @@ export const activityService = {
 }
 
 function getPath(user, event, activityDetails) {
-    return `/users/${user.id}/event/${event.eventId}/activity?source=${activityDetails.source}
-                            &sourceId=${activityDetails.sourceId}&type=${activityDetails.type}`
+    return `/users/${user.id}/event/${event.event_id}/activity?source=${activityDetails.source}&sourceId=${activityDetails.sourceId}&type=${activityDetails.type}`
 }
 
 function getBody(user, event, activityDetails) {
