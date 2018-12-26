@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import { account } from './account.module'
 import { events } from './events.module'
 import { sessions } from './sessions.module'
+import { alert } from './alert.module'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   modules: {
     account,
     events,
-    sessions
+    sessions,
+    alert
   }
 });

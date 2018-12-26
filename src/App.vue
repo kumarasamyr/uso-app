@@ -34,6 +34,7 @@
 
 <script>
 import bottomBar from "./components/BottomBar"
+import {mapState, mapActions} from 'vuex'
 export default {
   name: 'App',
   data () {
@@ -42,10 +43,23 @@ export default {
       bottomNav: 0
     }
   },
+  methods: {
+    ...mapActions({
+          clearAlert: 'alert/clear',
+      }),
+  },
   computed: {
+    ...mapState({
+          alert: state => state.alert
+      })
   },
   components: {
     bottomBar
+  },
+  watch: {
+      $route() {
+          this.clearAlert();
+      }
   }
 }
 </script>

@@ -1,40 +1,118 @@
 import {userService} from '../services';
+import router from '../router.js';
 
-const user = JSON.parse(localStorage.getItem('user'));
-// const user = {
-//     id: '1'
-// }
-const state = user
-    ? { status: { loggedIn: true }, user }
-    : { status: {}, user: null };
+const userid = localStorage.getItem('userid');
+const state = userid
+    ? { status: { loggedIn: true }, userid: userid, userInfo: null }
+    : { status: {}, userid: null, userInfo: null };
 
 const actions = {
-    login({commit}, {username, password}) {
-        commit('loginRequest', {username});
-        userService.login(username, password)
+    login({ commit, dispatch }, { email, password }) {
+        commit('loginRequest');
+        let data = {
+            userid: email,
+            password: password
+        };
+        userService.login(data)
             .then(
-                user => {
-                    commit('loginSuccess', user);
+                response => {
+                    if (response.data.exit_code) {
+                        console.error(response.data.message);
+                        commit('registerFailure');
+                        dispatch('alert/error', 'Email or password is incorrect', {root: true});
+                    } else {
+                        commit('loginSuccess', response.data.userId);
+                        localStorage.setItem('userid', response.data.userId);
+                        // router.push('/');
+                        userService.getUserInfo(state.userid)
+                            .then(response => {
+                                commit('getUserInfo', response.data);
+                                // console.log(response.data);
+                                router.push('/');
+                            }, error => {
+                                console.error(error);
+                            }
+                        );
+                    }
                 },
                 error => {
                     commit('loginFailure', error);
+                    console.error(error);
+                }
+            );
+    },
+    getUserInfo({commit}) {
+        userService.getUserInfo(state.userid)
+            .then(response => {
+                // console.log('getUserInfo response: ', response.data);
+                commit('getUserInfo', response.data);
+            }, error => {
+                console.error(error);
+            }
+        );
+    },
+    logout({commit}) {
+        userService.logout();
+        commit('logoutSuccess');
+        router.push('/');        
+    },
+    register({commit, dispatch}, {email, password}) {
+        commit('registerRequest');
+        let data = {
+            userid: email,
+            temporaryPassword: password
+        };
+        userService.register(data)
+            .then(
+                response => {
+                    if (response.data.exit_code) {
+                        console.error(response.data.message);
+                        commit('registerFailure');
+                        dispatch('alert/error', 'Email or password is incorrect', {root: true});
+                    } else {
+                        commit('registerSuccess', response.data.userId);
+                        localStorage.setItem('userid', response.data.userId);
+                        router.push('/setup');
+                    }
+                }, error => {
+                    commit('registerFailure');
+                    console.error(error);
                 }
             );
     }
 };
 
 const mutations = {
-    loginRequest(state, user) {
+    loginRequest(state) {
         state.status = { loggingIn: true };
-        state.user = user;
     },
-    loginSuccess(state, user) {
+    loginSuccess(state, userid) {
         state.status = { loggedIn: true };
-        state.user = user;
+        state.userid = userid;
     },
     loginFailure(state) {
         state.status = {};
-        state.user = null;
+    },
+    logoutSuccess(state) {
+        state.status = {};
+        state.userid = null;
+    },
+    getUserInfo(state, data) {
+        state.userInfo = data;
+    },
+    registerRequest(state) {
+        state.status = {
+            registering: true
+        };
+    },
+    registerSuccess(state, userid) {
+        state.status = {
+            userid: userid,
+            registered: true
+        }
+    },
+    registerFailure(state) {
+        state.status = {};
     }
 };
 

@@ -25,7 +25,7 @@
         <v-icon>fa-gamepad</v-icon>
       </v-btn>
 
-      <v-btn dark to="/setting">
+      <v-btn dark to="/profile">
         <span>Settings</span>
         <v-icon>fa-user-cog</v-icon>
       </v-btn>

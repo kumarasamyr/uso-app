@@ -13,9 +13,22 @@ import {
   VBottomNav,
   VBadge,
   VImg,
-  transitions
+  transitions,
+  VTextField,
+  VAvatar,
+  VDataTable,
+  VDivider,
+  VSwitch,
+  VForm,
+  VDialog,
+  VSubheader,
+  VSelect,
+  VMenu
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
+// import {
+//   VImage
+// } from 'vuetify/lib'
 
 Vue.use(Vuetify, {
   components: {
@@ -31,7 +44,17 @@ Vue.use(Vuetify, {
     VBottomNav,
     VBadge,
     VImg,
-    transitions
+    transitions,
+    VTextField,
+    VAvatar,
+    VDataTable,
+    VDivider,
+    VSwitch,
+    VForm,
+    VDialog,
+    VSubheader,
+    VSelect,
+    VMenu
   },
   theme: {
     primary: '#bb133e',

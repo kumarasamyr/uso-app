@@ -4,22 +4,58 @@ import Home from "./pages/Home.vue";
 
 Vue.use(Router);
 
+function requireAuth (to, from, next) {
+  if (localStorage.getItem('userid')) {
+    next();
+  } else {
+    next('/startup');
+  }
+}
+
+function noAuth(to, from, next) {
+  if (localStorage.getItem('userid')) {
+    next('/');
+  } else {
+    next()
+  }
+}
+
 export default new Router({
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: Home
+      path: '/',
+      name: 'home',
+      component: Home,
+      beforeEnter: requireAuth
     },
     {
-      path: "/login",
-      name: "login",
-      component: () => import("./pages/Login.vue")
+      path: '/startup',
+      name: 'startup',
+      component: () => import('./pages/Startup.vue'),
+      beforeEnter: noAuth
     },
     {
-      path: "/profile",
-      name: "profile",
-      component: () => import("./pages/Profile.vue")
+      path: '/register',
+      name: 'register',
+      component: () => import('./pages/Register.vue'),
+      beforeEnter: noAuth
+    },
+    {
+      path: '/setup',
+      name: 'setup',
+      component: () => import('./pages/Setup.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./pages/Login.vue'),
+      beforeEnter: noAuth
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('./pages/Profile.vue'),
+      beforeEnter: requireAuth
     },
     {
       path: "/bookmark",

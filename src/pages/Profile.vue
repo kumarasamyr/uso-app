@@ -1,18 +1,43 @@
 <template>
     <v-container>
-        <v-flex
-                text-xs-center
-                align-center
-                xs12>
-            <v-avatar
-                size="60%">
-                <img v-bind:src="profileUrl">
-            </v-avatar>
-            <h1 class="headline py-2">{{firstName}} <span v-if="nickName">"{{nickName}}"</span> {{lastName}}</h1>
-            <h3 class="py-1">{{city}}, {{state}}</h3>
-        </v-flex>
+        <!-- <v-card> -->
+            <v-card-title>
+
+              <v-spacer></v-spacer>
+
+              <v-btn icon class="mr-3" color="secondary" @click="temp()">
+                <v-icon>fa-edit</v-icon>
+              </v-btn>
+
+              <v-menu offset-y>
+                <v-btn slot="activator" icon color="secondary">
+                    <v-icon>fa-ellipsis-v</v-icon>
+                </v-btn>
+                <v-list>
+                    <!-- <v-list-tile v-for="(item, i) in items" :key="i">
+                        <v-list-tile-title>{{item.title}}</v-list-tile-title>
+                        <v-list-tile-action>{{item.action}}</v-list-tile-action>
+                    </v-list-tile> -->
+                    <v-list-tile @click="logout()">
+                        <v-list-tile-title>Logout</v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+                </v-menu>
+            </v-card-title>
+            <v-flex
+                    text-xs-center
+                    align-center
+                    xs12>
+                <v-avatar
+                    size="60%">
+                    <img v-bind:src="profileImage">
+                </v-avatar>
+                <h1 class="headline py-2">{{firstName}} <span v-if="nickName">"{{nickName}}"</span> {{lastName}}</h1>
+                <h3 class="py-1">{{city}}, {{state}}</h3>
+            </v-flex>
+        <!-- </v-card> -->
         <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
+            <v-flex xs12 sm12>
                 <v-list two-line>
                     <v-list-tile>
                         <v-list-tile-action>
@@ -132,6 +157,7 @@
 </template>
 
 <script>
+    import {mapActions, mapState} from 'vuex';
   export default {
     data () {
       return {
@@ -142,10 +168,10 @@
         profilePublic: false,
         profileUrl: 'https://cdn.vuetifyjs.com/images/lists/ali.png',
         location: 'Orlando, FL',
-        firstName: 'Allison',
-        lastName: 'Connors',
-        nickName: 'Ali',
-        email: 'aliconnors@example.com',
+        // firstName: '',
+        // lastName: 'Connors',
+        // nickName: 'Ali',
+        // email: '',
         phone: '(650) 555-1234',
         address1: '1400 Main Street',
         city: 'Orlando',
@@ -153,23 +179,53 @@
         zip: '79938',
         address2: 'Orlando, FL 79938',
         stateList: [ 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ]
-
       }
     },
+    created() {
+        this.getUserInfo();
+    },
     computed: {
+            ...mapState({
+                userInfo: state => state.account.userInfo
+            }),
             profileStatus: function() {
                 return this.profilePublic ? 'public' : 'private';
+            },
+            profileImage: function() {
+                return this.profileUrl || require('../assets/blank-profile.png');
+            },
+            firstName: function() {
+                return this.userInfo ? this.userInfo.firstName : 'Allison';
+            },
+            lastName: function() {
+                return this.userInfo ? this.userInfo.lastName : 'Connors';
+            },
+            nickName: function() {
+                return this.userInfo ? this.userInfo.nickName : 'Ali';
+            },
+            email: function() {
+                return this.userInfo ? this.userInfo.emailAddress : 'aliconnors@example.com';
+            },
+            // phone: function() {
+            //     return this.userInfo ? this.userInfo.phone || 'N/A' : '(650) 555-1234';
+            // }
+        },
+    methods: {
+        saveProfile: function() {
+            if (this.$refs.profileForm.validate()) {
+                console.log('Form valid');
+                this.dialog = false;
+            } else {
+                console.error('Form invalid');
             }
         },
-        methods: {
-            saveProfile: function() {
-                if (this.$refs.profileForm.validate()) {
-                    console.log('Form valid');
-                    this.dialog = false;
-                } else {
-                    console.error('Form invalid');
-                }
-            }
+        ...mapActions({
+            logout: 'account/logout',
+            getUserInfo: 'account/getUserInfo'
+        }),
+        temp: function() {
+            console.log(this.userInfo);
         }
+    }
   }
 </script>
