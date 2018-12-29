@@ -2,7 +2,7 @@
   <v-toolbar color="secondary" height="70px" dark app>
     <img class height="55px" src="../assets/uso-logo.svg">
     <v-spacer></v-spacer>
-    <span class="title">{{ heading }}</span>
+    <span class="subheading">{{ heading }}</span>
     <v-spacer></v-spacer>
     <v-btn fab small color="primary" to="/search">
       <v-icon style="height:auto;width:auto" small>fa-search</v-icon>
