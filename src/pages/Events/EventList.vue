@@ -20,15 +20,12 @@ import { eventsService } from "../../services";
 export default {
   data() {
     return {
-      user: {
-        id: "1"
-      },
       events: []
     };
   },
 
   computed: {
-    ...mapState("account", ["user"])
+    ...mapState("account", ["userid"])
   },
 
   created() {
@@ -44,7 +41,7 @@ export default {
     ...mapActions("events", ["selectEvent"]),
     fetchEvents() {
       //TODO: change to make service handle parameter object parsing
-      eventsService.getEvents(this.user.id).then(res => {
+      eventsService.getEvents(this.userid).then(res => {
         this.events = res["data"];
       });
     },
