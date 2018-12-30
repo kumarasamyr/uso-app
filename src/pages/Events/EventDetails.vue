@@ -1,6 +1,5 @@
 <template>
   <div>
-    <top-bar :heading="selectedEvent.name.toUpperCase()" backlink></top-bar>
     <v-layout class="primary white--text" row>
       <v-flex xs10>
         <v-card-text>
@@ -76,7 +75,7 @@
 
 <script>
 import topBar from "../../components/TopBar";
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -91,9 +90,12 @@ export default {
 
   created() {
     this.setEventDetails();
+    this.setNewHeading(this.selectedEvent.name);
+    this.setShowBackButton(true);
   },
 
   methods: {
+    ...mapActions('common', ['setNewHeading', 'setShowBackButton']),
     setEventDetails() {
       this.eventLocationString = `${this.selectedEvent.venueName}, ${
         this.selectedEvent.venueAddress1

@@ -27,7 +27,7 @@ class Service {
 
     put(path, body) {
         return this.service.request({
-            method: 'PATCH',
+            method: 'PUT',
             url: path,
             responseType:'json',
             data: body

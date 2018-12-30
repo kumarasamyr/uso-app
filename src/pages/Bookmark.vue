@@ -1,7 +1,5 @@
 <template>
   <div>
-    <top-bar heading="MY BOOKMARKS" backlink></top-bar>
-
     <v-list two-line class="mx-2">
       <transition-group name="slide">
         <v-list-tile
@@ -28,7 +26,8 @@
   </div>
 </template>
 <script>
-import topBar from "../components/TopBar";
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -60,10 +59,11 @@ export default {
       ]
     };
   },
-  components: {
-    topBar
+  created() {
+    this.setNewHeading('My Bookmarks');
   },
   methods: {
+    ...mapActions('common', ['setNewHeading']),
     removeBookmark(index) {
       this.bookmarks.splice(index, 1);
     }

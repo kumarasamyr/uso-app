@@ -1,124 +1,178 @@
-import {userService} from '../services';
 import router from '../router.js';
+import Vue from 'vue';
+import { User } from '../utils/UserClass';
+import { userService } from '../services';
+import { isNullOrUndefined } from 'util';
 
-const userid = localStorage.getItem('userid');
-const state = userid
-    ? { status: { loggedIn: true }, userid: userid, userInfo: null }
-    : { status: {}, userid: null, userInfo: null };
+const USERID = 'userId';
+const USERINFO = 'userInfo';
+
+const state = {
+    status: {
+        loggedIn: !isNullOrUndefined(localStorage.getItem(USERID)),
+        registered: false
+    },
+    userId: localStorage.getItem(USERID),
+    userInfo: localStorage.getItem(USERINFO) || {}
+}
 
 const actions = {
-    login({ commit, dispatch }, { email, password }) {
-        commit('loginRequest');
-        let data = {
-            userid: email,
-            password: password
+    changePassword({commit}, {oldPassword, newPassword}) {
+        // TODO
+        const data = {
+            newPassword: newPassword,
+            oldPassword: oldPassword,
+            userid: state.userId
         };
-        userService.login(data)
-            .then(
-                response => {
-                    if (response.data.exit_code) {
-                        console.error(response.data.message);
-                        commit('registerFailure');
-                        dispatch('alert/error', 'Email or password is incorrect', {root: true});
-                    } else {
-                        commit('loginSuccess', response.data.userId);
-                        localStorage.setItem('userid', response.data.userId);
-                        // router.push('/');
-                        userService.getUserInfo(state.userid)
-                            .then(response => {
-                                commit('getUserInfo', response.data);
-                                // console.log(response.data);
-                                router.push('/');
-                            }, error => {
-                                console.error(error);
-                            }
-                        );
-                    }
-                },
-                error => {
-                    commit('loginFailure', error);
-                    console.error(error);
-                }
-            );
-    },
-    getUserInfo({commit}) {
-        userService.getUserInfo(state.userid)
-            .then(response => {
-                // console.log('getUserInfo response: ', response.data);
-                commit('getUserInfo', response.data);
+        userService.changePassword(data).then(
+            // TODO
+            response => {
+                console.log(response);
+                commit('passwordChangeSuccess');
             }, error => {
+                console.error(error);
+                commit('passwordChangeFail');
+            }
+        );
+    },
+    createProfile() {
+        // TODO
+        const data = {};
+        userService.createProfile(data).then(
+            response => {
+                // TODO
+                console.log(response);
+            }, error => {
+                // TODO
                 console.error(error);
             }
         );
     },
-    logout({commit}) {
-        userService.logout();
+    getUserInfo({commit, dispatch}) {
+        userService.getUserInfo().then(
+            response => {
+                commit('getUserInfo', response.data);
+            }, error => {
+                Vue.$log.error(error.message);
+                let message = '';
+                if (!isNullOrUndefined(state.userInfo)) {
+                    message = 'There was a problem refreshing your profile. You are viewing cached data.';
+                } else {
+                    message = 'There was a problem retrieving your profile. Please try again in a few minutes.';
+                }
+                dispatch('alert/error', message, {root: true});
+            }
+        );
+    },
+    login({commit, dispatch}, {email, password}) {
+        dispatch('alert/clear', null, {root: true});
+        const data = {
+            password: password,
+            userid: email
+        };
+        userService.login(data).then(
+            response => {
+                if (response.data.exit_code) {
+                    Vue.$log.error(response.data.message);
+                    commit('loginFailure');
+                    dispatch('alert/error', 'Email or password is incorrect', {root: true});
+                } else {
+                    Vue.$log.info('Successful login for ' + email);
+                    commit('loginSuccess', response.data.userId);
+                    dispatch('getUserInfo');
+                    router.push('/');
+                }
+            }, error => {
+                Vue.$log.error(error.message);
+                commit('loginFailure', error);
+                dispatch('alert/error', 'There was a problem logging in. Please try again in a few minutes.', {root: true});
+            }
+        );
+    },
+    logout({commit, dispatch}) {
         commit('logoutSuccess');
-        router.push('/');        
+        router.push('/startup', () => {
+            dispatch('alert/success', 'You were successfully logged out.', {root: true})
+        });
     },
     register({commit, dispatch}, {email, password}) {
-        commit('registerRequest');
-        let data = {
-            userid: email,
-            temporaryPassword: password
+        dispatch('alert/clear', null, {root: true});
+        const data = {
+            temporaryPassword: password,
+            userid: email
         };
-        userService.register(data)
-            .then(
-                response => {
-                    if (response.data.exit_code) {
-                        console.error(response.data.message);
-                        commit('registerFailure');
-                        dispatch('alert/error', 'Email or password is incorrect', {root: true});
-                    } else {
-                        commit('registerSuccess', response.data.userId);
-                        localStorage.setItem('userid', response.data.userId);
-                        router.push('/setup');
-                    }
-                }, error => {
+        userService.register(data).then(
+            response => {
+                if (response.data.exit_code) {
+                    Vue.$log.error(response.data.message);
                     commit('registerFailure');
-                    console.error(error);
+                    dispatch('alert/error', 'Email or password is incorrect', {root: true});
+                } else {
+                    Vue.$log.info('Successful registration for ' + email);
+                    commit('registerSuccess', email);
+                    router.push('/setup');
                 }
-            );
+            }, error => {
+                Vue.$log.error(error.message);
+                commit('registerFailure');
+                dispatch('alert/error', 'There was a problem registering. Please try again in a few minutes.', {root: true});
+            }
+        );
     }
 };
 
 const mutations = {
-    loginRequest(state) {
-        state.status = { loggingIn: true };
-    },
-    loginSuccess(state, userid) {
-        state.status = { loggedIn: true };
-        state.userid = userid;
+    getUserInfo(state, data) {
+        const newUser = createUser(data);
+        localStorage.setItem(USERINFO, newUser);
+        state.userInfo = newUser;
     },
     loginFailure(state) {
-        state.status = {};
+        state.status.loggedIn = false;
+    },
+    loginSuccess(state, userId) {
+        localStorage.setItem(USERID, userId);
+        state.status.loggedIn = true;
+        state.userId = userId;
     },
     logoutSuccess(state) {
-        state.status = {};
-        state.userid = null;
-    },
-    getUserInfo(state, data) {
-        state.userInfo = data;
-    },
-    registerRequest(state) {
-        state.status = {
-            registering: true
-        };
-    },
-    registerSuccess(state, userid) {
-        state.status = {
-            userid: userid,
-            registered: true
-        }
+        localStorage.removeItem(USERID);
+        localStorage.removeItem(USERINFO);
+        state.status = {}
+        state.userId = null;
+        state.userInfo = null;
     },
     registerFailure(state) {
-        state.status = {};
+        state.status.registered = false;
+    },
+    registerSuccess(state, userId) {
+        localStorage.setItem(USERID, userId);
+        state.status.registered = true;
+        state.userId = userId;
     }
 };
 
+function createUser(userInfo) {
+    const newUser = new User(
+        userInfo.city,
+        userInfo.emailAddress,
+        userInfo.firstName,
+        userInfo.lastName,
+        userInfo.nickName,
+        userInfo.phone,
+        userInfo.state,
+        userInfo.streetAddress,
+        userInfo.userId,
+        userInfo.profilePublic,
+        userInfo.profileUrl,
+        userInfo.zip
+    );
+    return newUser;
+}
+
 export const account = {
-    namespaced: true,
-    state,
     actions,
-    mutations
+    mutations,
+    namespaced: true,
+    state
 };

@@ -1,9 +1,15 @@
 <template>
-    <v-container text-xs-center>
-        <div><h1 style="color:#002147">Welcome to Reset</h1></div><br /><br />
-        <img width="75%" v-bind:src="logo" /><br /><br /><br />
-        <div><v-btn color="primary" @click="register()">Register</v-btn></div>
-        <div><v-btn color="secondary" @click="login()">Login</v-btn></div>
+    <v-container fill-height text-xs-center>
+        <v-layout row wrap align-center>
+            <v-flex xs-12>
+                <h1 style="color:#002147">Welcome to Reset</h1>
+                <br /><br />
+                <img width="75%" v-bind:src="logo" />
+                <br /><br /><br />
+                <div><v-btn color="primary" @click="register()">Register</v-btn></div>
+                <div><v-btn color="secondary" @click="login()">Login</v-btn></div>
+            </v-flex>
+        </v-layout>
     </v-container>
 </template>
 
@@ -17,11 +23,11 @@
             }
         },
         methods: {
-            register() {
-                this.$router.push('/register');
-            },
             login() {
                 this.$router.push('/login');
+            },
+            register() {
+                this.$router.push('/register');
             }
         }
     }

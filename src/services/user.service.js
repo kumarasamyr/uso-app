@@ -1,26 +1,47 @@
-import axios from 'axios'
+import request from './common.service';
+import store from '../store';
+import { CONFIG } from '../config/config';
 
-export const userService = {
-    login,
-    logout,
-    getUserInfo,
-    register
+const baseUrl = CONFIG.api.users;
+
+function changePassword(data) {
+    // TODO
+    return request.put(baseUrl + `/users/${store.state.account.userId}/password`, data);
+}
+
+function createProfile(data) {
+    // TODO
+    console.log(data);
+}
+
+function forgotPassword(data) {
+    // TODO
+    console.log(data);
+}
+
+function getUserInfo() {
+    return request.get(baseUrl + `/users/${store.state.account.userId}`);
 }
 
 function login(data) {
-    return axios.put('http://54.146.128.49:8080/users', data);
-}
-
-function logout() {
-    localStorage.removeItem('userid');
-}
-
-function getUserInfo(userid) {
-    userid;
-    // return axios.post('http://54.146.128.49:8080/users' + '/' + userid);
-    return axios.get('userInfo.json');
+    if (!isNaN(parseInt(data.userid))) {
+        data.userid = parseInt(data.userid);
+    }
+    return request.put(baseUrl + '/users', data);
 }
 
 function register(data) {
-    return axios.post('http://54.146.128.49:8080/users', data)
+    if (!isNaN(parseInt(data.userid))) {
+        data.userid = parseInt(data.userid);
+    }
+    return request.post(baseUrl + '/users', data)
+}
+
+export const userService = {
+    changePassword,
+    createProfile,
+    forgotPassword,
+    getUserInfo,
+    login,
+    register
 }

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <top-bar heading="AGENDA" backlink></top-bar>
     <v-container fluid grid-list-lg>
       <v-layout v-for="session in sessions" :key="session.sessionId" row wrap>
         <v-flex xs12>
@@ -16,7 +15,6 @@
 </template>
 
 <script>
-import topBar from "../../../components/TopBar";
 import SessionCard from "./SessionCard.vue";
 import { mapState, mapActions } from "vuex";
 import { sessionsService } from "../../../services";
@@ -32,12 +30,14 @@ export default {
   },
   created() {
     this.fetchSessions();
+    this.setNewHeading('Agenda');
+    this.setShowBackButton(true);
   },
   components: {
-    topBar,
     SessionCard
   },
   methods: {
+    ...mapActions('common', ['setNewHeading', 'setShowBackButton']),
     ...mapActions("sessions", ["selectSession"]),
     fetchSessions() {
       sessionsService.getSessions(this.selectedEvent.event_id).then(res => {

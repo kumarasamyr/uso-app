@@ -1,7 +1,8 @@
 <template>
   <v-app>
-    <top-bar heading="RESET" backlink></top-bar>
-    <v-content color="secondary">
+    <top-bar></top-bar>
+    <v-content>
+      <div class="text-xs-center"><v-alert transition="slide-y-transition" style="position: absolute; z-index: 2; width: 100%;" v-if="alert.message" :value="true" :type="alert.type" dismissible>{{alert.message}}</v-alert></div>
       <transition name="fade">
         <router-view/>
       </transition>
@@ -13,7 +14,8 @@
 <script>
 import topBar from "./components/TopBar";
 import bottomBar from "./components/BottomBar";
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
+
 export default {
   name: "App",
   data() {
@@ -21,11 +23,6 @@ export default {
       // fab: "home",
       bottomNav: 0
     };
-  },
-  methods: {
-    ...mapActions({
-      clearAlert: "alert/clear"
-    })
   },
   computed: {
     ...mapState({
@@ -35,11 +32,6 @@ export default {
   components: {
     topBar,
     bottomBar
-  },
-  watch: {
-    $route() {
-      this.clearAlert();
-    }
   }
 };
 </script>

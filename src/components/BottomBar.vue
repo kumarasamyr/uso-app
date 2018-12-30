@@ -20,7 +20,7 @@
       </v-btn>
 
       <v-btn dark to="/profile">
-        <span>Settings</span>
+        <span>Profile</span>
         <v-icon>fa-user-cog</v-icon>
       </v-btn>
     </v-bottom-nav>

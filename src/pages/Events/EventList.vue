@@ -1,6 +1,5 @@
 <template>
   <div>
-    <top-bar heading="MY EVENTS" backlink></top-bar>
     <v-container fluid grid-list-lg>
       <v-layout v-for="event in events" :key="event.event_id" row wrap>
         <v-flex xs12>
@@ -23,13 +22,12 @@ export default {
       events: []
     };
   },
-
   computed: {
-    ...mapState("account", ["userid"])
+      ...mapState('account', [('userId')])
   },
-
   created() {
     this.fetchEvents();
+    this.setNewHeading('My Events');
   },
 
   components: {
@@ -38,16 +36,17 @@ export default {
   },
 
   methods: {
+    ...mapActions('common', ['setNewHeading']),
     ...mapActions("events", ["selectEvent"]),
     fetchEvents() {
       //TODO: change to make service handle parameter object parsing
-      eventsService.getEvents(this.userid).then(res => {
+      eventsService.getEvents(this.userId).then(res => {
         this.events = res["data"];
       });
     },
     clickEvent(event) {
       this.selectEvent(event);
-      this.$router.push({ path: "/event/details" });
+      this.$router.push({ path: `/event/details/${event.event_id}` });
     }
   }
 };

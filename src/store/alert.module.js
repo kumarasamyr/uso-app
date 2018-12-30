@@ -4,35 +4,35 @@ const state = {
 };
 
 const actions = {
-    success({ commit }, message) {
-        commit('success', message);
+    clear({commit} ) {
+        commit('clear');
     },
-    error({ commit }, message) {
+    error({commit}, message) {
         commit('error', message);
     },
-    clear({ commit } ) {
-        commit('clear');
+    success({commit}, message) {
+        commit('success', message);
     }
 };
 
 const mutations = {
-    success(state, message) {
-        state.type = 'alert-success';
-        state.message = message;
+    clear(state) {
+        state.type = null;
+        state.message = null;
     },
     error(state, message) {
         state.type = 'error';
         state.message = message;
     },
-    clear(state) {
-        state.type = null;
-        state.message = null;
-    }
+    success(state, message) {
+        state.type = 'success';
+        state.message = message;
+    }    
 };
 
 export const alert = {
-    namespaced: true,
-    state,
     actions,
-    mutations
+    mutations,
+    namespaced: true,
+    state
 };

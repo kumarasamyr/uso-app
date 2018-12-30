@@ -1,17 +1,12 @@
 <template>
-  <div>
-    <v-toolbar color="secondary" height="70px" dark app>
-      <div id="title">
-        <h1>Your Events</h1>
-      </div>
-    </v-toolbar>
-    <h1>feedback</h1>
-    <event-title></event-title>
-  </div>
+    <v-container>
+        <h1>Feedback page</h1>
+    </v-container>
 </template>
 
 <script>
 import axios from "axios";
+import { mapActions } from 'vuex';
 
 import eventTitle from "../../components/EventTitle";
 
@@ -23,6 +18,8 @@ export default {
   },
 
   created() {
+    this.setNewHeading('Feedback');
+    this.setShowBackButton(true);
     axios
 
       .get(`http://jsonplaceholder.typicode.com/posts`)
@@ -37,9 +34,11 @@ export default {
         this.errors.push(e);
       });
   },
-
   components: {
     eventTitle
+  },
+  methods: {
+    ...mapActions('common', ['setNewHeading', 'setShowBackButton'])
   }
 };
 </script>
