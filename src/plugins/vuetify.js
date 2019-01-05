@@ -1,35 +1,63 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import {
-  Vuetify,
+  transitions,
+  VAlert,
   VApp,
-  VNavigationDrawer,
-  VFooter,
-  VList,
-  VBtn,
-  VIcon,
-  VGrid,
-  VToolbar,
-  VCard,
-  VBottomNav,
+  VAvatar,
   VBadge,
-  transitions
-} from 'vuetify'
-import 'vuetify/src/stylus/app.styl'
+  VBottomNav,
+  VBtn,
+  VCard,
+  VDataTable,
+  VDialog,
+  VDivider,
+  VFooter,
+  VForm,
+  VGrid,
+  VIcon,
+  VImg,
+  VList,
+  VMenu,
+  VNavigationDrawer,
+  VSelect,
+  VSnackbar,
+  VStepper,
+  VSubheader,
+  VSwitch,
+  VTextField,
+  VToolbar,
+  Vuetify
+} from 'vuetify';
+import 'vuetify/src/stylus/app.styl';
 
 Vue.use(Vuetify, {
   components: {
+    transitions,
+    VAlert,
     VApp,
-    VNavigationDrawer,
-    VFooter,
-    VList,
-    VBtn,
-    VIcon,
-    VGrid,
-    VToolbar,
-    VCard,
-    VBottomNav,
+    VAvatar,
     VBadge,
-    transitions
+    VBottomNav,
+    VBtn,
+    VCard,
+    VDataTable,
+    VDialog,
+    VDivider,
+    VFooter,
+    VForm,
+    VGrid,
+    VIcon,
+    VImg,
+    VList,
+    VMenu,
+    VNavigationDrawer,
+    VSelect,
+    VSnackbar,
+    VStepper,
+    VSubheader,
+    VSwitch,
+    VTextField,
+    VToolbar
   },
   theme: {
     primary: '#bb133e',
@@ -42,4 +70,4 @@ Vue.use(Vuetify, {
   },
   customProperties: true,
   iconfont: 'fa',
-})
+});
