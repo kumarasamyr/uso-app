@@ -33,14 +33,14 @@ const router = new Router({
       component: () => import("./pages/Bookmark.vue")
     },
     {
-      path: "/event/details/:id",
-      name: "eventdetails",
-      component: () => import("./pages/Events/EventDetails.vue")
-    },
-    {
       path: "/events",
       name: "events",
       component: () => import("./pages/Events/EventList.vue")
+    },
+    {
+      path: "/event/details",
+      name: "eventdetails",
+      component: () => import("./pages/Events/EventDetails.vue")
     },
     {
       path: "/events/feedback",

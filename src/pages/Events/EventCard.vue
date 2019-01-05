@@ -7,13 +7,13 @@
         >
         </v-img>
         <v-flex xs12 offset-xs1>
-            <h2>{{event.name}}</h2>
+            <h3>{{event.name}}</h3>
         </v-flex>
         <v-flex xs12 offset-xs1>
             <p>{{event.description}}</p>
         </v-flex>
         <v-flex xs12 offset-xs1>
-            <h3>{{event.startDate}}</h3>
+            <h4>{{event.startDate}}</h4>
         </v-flex>
     </v-card>
 </template>
@@ -23,3 +23,9 @@ export default {
     props: ['event']
 };
 </script>
+
+<style scoped>
+p {
+    margin-bottom: 0px;
+}
+</style>

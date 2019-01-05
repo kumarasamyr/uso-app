@@ -2,68 +2,64 @@
   <div>
     <v-layout class="primary white--text" row>
       <v-flex xs10>
-        <v-card-text>
+        <v-card-text class="event-location">
           <span>{{eventLocationString}}</span>
           <br>
           {{eventTimeString}}
         </v-card-text>
       </v-flex>
-      <v-flex xs2>
-        <v-card-text>
-          <v-btn class="ma-0 pa-0" dark small fab flat>
-            <v-icon>fa-map-marker-alt</v-icon>
-          </v-btn>
-        </v-card-text>
+      <v-flex align-self-center xs2>
+        <v-icon medium>fa-map-marker-alt</v-icon>
       </v-flex>
     </v-layout>
 
     <v-container grid-list-xl>
       <v-layout row wrap>
         <v-flex xs6>
-          <v-card class="elevation-5">
+          <v-card class="elevation-5 primary">
             <v-flex text-xs-center>
-              <v-icon x-large color="primary" right>fa-book</v-icon>
+              <v-icon x-large right>fa-book</v-icon>
               <div>Materials</div>
             </v-flex>
           </v-card>
         </v-flex>
         <v-flex xs6>
-          <v-card class="elevation-5" to="/agenda">
+          <v-card class="elevation-5 primary" to="/agenda">
             <v-flex text-xs-center>
-              <v-icon x-large color="primary" right>fa-calendar-minus</v-icon>
+              <v-icon x-large white right>fa-calendar-minus</v-icon>
               <div>Agenda</div>
             </v-flex>
           </v-card>
         </v-flex>
         <v-flex xs6>
-          <v-card class="elevation-5">
+          <v-card class="elevation-5 primary">
             <v-flex text-xs-center>
-              <v-icon x-large color="primary" right>fa-flag</v-icon>
+              <v-icon x-large white right>fa-flag</v-icon>
               <div>My Progress</div>
             </v-flex>
           </v-card>
         </v-flex>
 
         <v-flex xs6>
-          <v-card class="elevation-5" to="/events/feedback">
+          <v-card class="elevation-5 primary" to="/events/feedback">
             <v-flex text-xs-center>
-              <v-icon x-large color="primary" right>fa-comment-alt</v-icon>
+              <v-icon x-large white right>fa-comment-alt</v-icon>
               <div>Feedback</div>
             </v-flex>
           </v-card>
         </v-flex>
         <v-flex xs6>
-          <v-card class="elevation-5">
+          <v-card class="elevation-5 primary">
             <v-flex text-xs-center>
-              <v-icon x-large color="primary" right>fa-share-alt</v-icon>
+              <v-icon x-large white right>fa-share-alt</v-icon>
               <div>Event Wall</div>
             </v-flex>
           </v-card>
         </v-flex>
         <v-flex xs6>
-          <v-card class="elevation-5">
+          <v-card class="elevation-5 primary">
             <v-flex text-xs-center>
-              <v-icon x-large color="primary" right>fa-users</v-icon>
+              <v-icon x-large white right>fa-users</v-icon>
               <div>Attendees</div>
             </v-flex>
           </v-card>
@@ -77,6 +73,7 @@
 import topBar from "../../components/TopBar";
 import { mapActions, mapState } from "vuex";
 export default {
+  // TODO: clean up html
   data() {
     return {
       eventLocationString: "",
@@ -108,10 +105,19 @@ export default {
   components: {
     topBar
   }
+
 };
 </script>
 
 <style>
+p {
+  margin-bottom: 0px;
+}
+
+.event-location {
+  padding: 8px 16px 8px 16px;
+}
+
 .column {
   float: left;
   padding: 10px;

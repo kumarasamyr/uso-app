@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-bottom-nav :active.sync="bottomNav" :value="true" color="secondary" app fixed>
-      <v-btn dark to="/events">
+      <v-btn dark to="/">
         <span>Events</span>
         <v-icon>fa-list</v-icon>
       </v-btn>

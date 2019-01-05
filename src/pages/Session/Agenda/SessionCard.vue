@@ -1,5 +1,5 @@
 <template>
-    <v-card color="blue-grey darken-2" class="white--text session-card">
+    <v-card class="white--text session-card">
             <v-card-title primary-title>
                 <v-flex xs3>
                   {{session.startTime}}
@@ -90,13 +90,9 @@ export default {
                 type: activityType
             }
              if (this.activityState[activityType]) {
-                 activityService.undoActivity(this.user, this.event, details).then(res => {
-                     toggleActivity(activityType)
-                 })
+                 activityService.undoActivity(this.user, this.event, details).then(this.toggleActivity(activityType))
              } else {
-                 activityService.updateActivity(this.user, this.event, details).then(res => {
-                     toggleActivity(activityType)
-                 })
+                 activityService.updateActivity(this.user, this.event, details).then(this.toggleActivity(activityType))
              }
         },
 
@@ -110,5 +106,11 @@ export default {
 <style scoped>
     .session-card {
         border-radius: 10px;
+    }
+
+    .headline {
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        white-space: nowrap;
     }
 </style>

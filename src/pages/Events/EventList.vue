@@ -3,7 +3,7 @@
     <v-container fluid grid-list-lg>
       <v-layout v-for="event in events" :key="event.event_id" row wrap>
         <v-flex xs12>
-          <EventCard v-bind:event="event" @click.native="clickEvent(event)"></EventCard>
+          <EventCard class="primary" v-bind:event="event" @click.native="clickEvent(event)"></EventCard>
         </v-flex>
       </v-layout>
     </v-container>
@@ -46,7 +46,7 @@ export default {
     },
     clickEvent(event) {
       this.selectEvent(event);
-      this.$router.push({ path: `/event/details/${event.event_id}` });
+      this.$router.push({ path: '/event/details' });
     }
   }
 };

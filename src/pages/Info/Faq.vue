@@ -1,7 +1,6 @@
 <template>
   <div>
     <top-bar heading="RESET" backlink></top-bar>
-
     <v-layout row>
       <v-flex>
         <v-card class="elevation-0">
@@ -19,12 +18,11 @@
                   <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
-
               <v-list-tile
                 v-if="item.title != 'Contact Us'"
                 v-for="subItem in item.body"
                 :key="subItem.title"
-                @click
+                @click="select()"
               >
                 <v-list-tile-content>
                   <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
@@ -32,11 +30,10 @@
               </v-list-tile>
 
               <v-list v-else two-line>
-                <v-list-tile @click>
+                <v-list-tile @click="select()">
                   <v-list-tile-action>
                     <v-icon color="indigo">fa-phone</v-icon>
                   </v-list-tile-action>
-
                   <v-list-tile-content>
                     <v-list-tile-title>(650) 555-1234</v-list-tile-title>
                     <v-list-tile-sub-title>Phone</v-list-tile-sub-title>
@@ -45,7 +42,7 @@
 
                 <v-divider inset></v-divider>
 
-                <v-list-tile @click>
+                <v-list-tile @click="select()">
                   <v-list-tile-action>
                     <v-icon color="indigo">fa-envelope</v-icon>
                   </v-list-tile-action>
@@ -58,7 +55,7 @@
 
                 <v-divider inset></v-divider>
 
-                <v-list-tile @click>
+                <v-list-tile @click="select()">
                   <v-list-tile-action>
                     <v-icon color="indigo">fa-map-marker-alt</v-icon>
                   </v-list-tile-action>
@@ -154,6 +151,11 @@ export default {
   },
   components: {
     topBar
+  },
+  methods: {
+    select() {
+      console.log('clicked');
+    }
   }
 };
 </script>
