@@ -12,6 +12,10 @@ import {
   VCard,
   VBottomNav,
   VBadge,
+  VImg,
+  VChip,
+  VAvatar,
+  VSubheader,
   transitions
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
@@ -29,6 +33,10 @@ Vue.use(Vuetify, {
     VCard,
     VBottomNav,
     VBadge,
+    VImg,
+    VChip,
+    VAvatar,
+    VSubheader,
     transitions
   },
   theme: {

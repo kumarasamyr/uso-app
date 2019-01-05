@@ -34,6 +34,20 @@ export default new Router({
       name: 'setting',
       component: () => import('./pages/Setting.vue')
     },
-
+    {
+      path: '/speakerbio',
+      name: 'speakerbio',
+      component: () => import('./pages/Speakerbio.vue')
+    },
+    {
+      path: '/attendeelist',
+      name: 'attendeelist',
+      component: () => import('./pages/AttendeeList.vue')
+    },
+    {
+      path: '/eventMaterialHome',
+      name: 'eventMaterialHome',
+      component: () => import('./pages/EventMaterialHome.vue')
+    },
   ]
 })
