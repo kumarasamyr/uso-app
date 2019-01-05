@@ -3,7 +3,7 @@
         <v-card-title>
             <v-spacer></v-spacer>
             <v-menu offset-y>
-            <v-btn slot="activator" icon color="secondary">
+            <v-btn slot="activator" icon>
                 <v-icon>fa-cog</v-icon>
             </v-btn>
             <v-list>
@@ -20,8 +20,8 @@
             </v-menu>
         </v-card-title>
         <v-flex text-xs-center align-center xs12>
-            <v-avatar size="250px"><img v-bind:src="profileImage"></v-avatar>
-            <h1 class="headline py-2">{{firstName}} <span v-if="nickName">"{{nickName}}"</span> {{lastName}}</h1>
+            <v-avatar size="200px"><img v-bind:src="profileImage"></v-avatar>
+            <h1 class="headline py-3">{{firstName}} <span v-if="nickName">"{{nickName}}"</span> {{lastName}}</h1>
             <h3 class="py-1">{{city}}, {{state}}</h3>
         </v-flex>
         <v-layout row>
@@ -29,7 +29,7 @@
                 <v-list two-line>
                     <v-list-tile>
                         <v-list-tile-action>
-                            <v-icon color="indigo">fa-phone</v-icon>
+                            <v-icon color="white">fa-phone</v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content>
                             <v-list-tile-title>{{phone}}</v-list-tile-title>
@@ -38,7 +38,7 @@
                     <v-divider inset></v-divider>
                     <v-list-tile>
                         <v-list-tile-action>
-                            <v-icon color="indigo">fa-envelope</v-icon>
+                            <v-icon color="white">fa-envelope</v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content>
                             <v-list-tile-title>{{email}}</v-list-tile-title>
@@ -47,7 +47,7 @@
                     <v-divider inset></v-divider>
                     <v-list-tile>
                         <v-list-tile-action>
-                            <v-icon color="indigo">fa-map-marker-alt</v-icon>
+                            <v-icon color="white">fa-map-marker-alt</v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content>
                             <v-list-tile-title>{{streetAddress}}</v-list-tile-title>
@@ -56,7 +56,7 @@
                     </v-list-tile>
                     <v-list-tile>
                         <v-list-tile-action>
-                            <v-icon color="indigo">fa-user-secret</v-icon>
+                            <v-icon color="white">fa-user-secret</v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content>Your profile is {{profileStatus}}</v-list-tile-content>
                     </v-list-tile>
@@ -65,79 +65,90 @@
         </v-layout>
         <v-layout row justify-center>
             <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+                <v-toolbar dark color="primary">
+                    <v-btn icon dark @click="closeDialog()">
+                        <v-icon>fa-times</v-icon>
+                    </v-btn>
+                    <v-toolbar-title>{{dialogHeader}}</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-toolbar-items>
+                        <v-btn dark flat @click="dialogAction()" :disabled="disableDialogSubmission()">Save</v-btn>
+                    </v-toolbar-items>
+                </v-toolbar>
+                <div class="text-xs-center"><v-alert transition="slide-y-transition" style="position: absolute; z-index: 2; width: 100%;" v-if="alert.message" :value="true" :type="alert.type" dismissible>{{alert.message}}</v-alert></div>
                 <v-card v-if="action === 'editProfile'">
-                    <v-toolbar dark color="primary" fixed>
-                        <v-btn icon dark @click="dialog = false">
-                            <v-icon>fa-times</v-icon>
-                        </v-btn>
-                        <v-toolbar-title>Edit Profile</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-toolbar-items>
-                            <v-btn dark flat @click="saveProfile()" :disabled="!profileFormValid">Save</v-btn>
-                        </v-toolbar-items>
-                    </v-toolbar>
                     <v-card-text>
-                        <br /><br /><br />
+                        <br />
                         <v-form ref="profileForm" v-model="profileFormValid">
                             <div class="text-xs-center">
                                 <v-avatar size="100px"><img v-bind:src="profileFormImage" @click="openFileUpload()"></v-avatar>
                                 <input style="display:none" type="file" accept="image/*" id="file" ref="file" v-on:change="handleFileUpload()" />
                             </div>
                             <v-text-field
+                                color="white"
                                 v-model="profileForm.firstName"
                                 :rules="[v => !!v || 'First name is required']"
                                 label="First Name"
                                 required>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="profileForm.lastName"
                                 :rules="[v => !!v || 'Last name is required']"
                                 label="Last Name"
                                 required>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="profileForm.nickName"
                                 label="Nickname (optional)">
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="profileForm.email"
                                 label="Email"
                                 required
                                 disabled>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="profileForm.phone"
-                                :rules="[v => !!v || 'Phone number is required', v => (v && v.length == 10) || 'Phone number must be valid']"
+                                :rules="[v => !!v || 'Phone number is required']"
                                 label="Phone"
                                 mask="phone"
                                 required>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="profileForm.streetAddress"
                                 :rules="[v => !!v || 'Street address is required']"
                                 label="Street Address"
                                 required>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="profileForm.city"
                                 :rules="[v => !!v || 'City is required']"
                                 label="City"
                                 required>
                             </v-text-field>
                             <v-select
+                                color="white"
                                 v-model="profileForm.state"
                                 :items="stateList"
                                 label="State"
                                 required>
                             </v-select>
                             <v-text-field
+                                color="white"
                                 v-model="profileForm.zip"
-                                :rules="[v => !!v || 'Zip is required', v => (v && v.length == 5) || 'Zip code must be valid']"
+                                :rules="[v => !!v || 'Zip is required']"
                                 label="Zip Code"
                                 mask="#####"
                                 required>
                             </v-text-field>
-                            <v-switch 
+                            <v-switch
+                                color="white"
                                 :label="`Your profile is ${profileStatus}`" 
                                 v-model="profileForm.profilePublic">
                             </v-switch>
@@ -145,19 +156,10 @@
                     </v-card-text>
                 </v-card>
                 <v-card v-if="this.action === 'changePassword'">
-                    <v-toolbar dark color="primary">
-                        <v-btn icon dark @click="dialog = false">
-                            <v-icon>fa-times</v-icon>
-                        </v-btn>
-                        <v-toolbar-title>Change Password</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-toolbar-items>
-                            <v-btn dark flat @click="submitNewPassword()" :disabled="!passwordFormValid">Save</v-btn>
-                        </v-toolbar-items>
-                    </v-toolbar>
                     <v-card-text>
                         <v-form ref="passwordForm" v-model="passwordFormValid">
                             <v-text-field
+                                color="white"
                                 v-model="passwordOld"
                                 :rules="[v => !!v || 'Old password is required']"
                                 label="Old password"
@@ -165,6 +167,7 @@
                                 required>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="passwordNew"
                                 :rules="[v => !!v || 'New password is required']"
                                 label="New password"
@@ -172,8 +175,9 @@
                                 required>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="passwordNewCopy"
-                                :rules="[v => !!v || 'New password is required', v => (v && v === passwordNew) || 'New passwords must match']"
+                                :rules="[v => !!v || 'New password is required']"
                                 label="Retype new password"
                                 type="password"
                                 required>
@@ -212,49 +216,72 @@
         },
         computed: {
                 ...mapState({
+                    alert: state => state.alert,
                     userInfo: state => state.account.userInfo
                 }),
-                city: function() {
+                city() {
                     return this.userInfo.city;
                 },
-                email: function() {
+                dialogHeader() {
+                    return this.action === 'editProfile' ? "Edit Profile" : "Change Password";
+                },
+                email() {
                     return this.userInfo.email;
                 },
-                firstName: function() {
+                firstName() {
                     return this.userInfo.firstName;
                 },
-                lastName: function() {
+                lastName() {
                     return this.userInfo.lastName;
                 },
-                nickName: function() {
+                nickName() {
                     return this.userInfo.nickName;
                 },
-                phone: function() {
+                phone() {
                     return this.userInfo.phone;
                 },
-                profileFormImage: function() {
+                profileFormImage() {
                     return this.profileForm.profileUrl || require('../../assets/blank-profile.png');
                 },
-                profileImage: function() {
+                profileImage() {
                     return this.userInfo.profileUrl || require('../../assets/blank-profile.png');
                 },
-                profileStatus: function() {
+                profileStatus() {
                     return this.userInfo.profilePublic ? 'public' : 'private';
                 },
-                state: function() {
+                state() {
                     return this.userInfo.state;
                 },
-                streetAddress: function() {
+                streetAddress() {
                     return this.userInfo.streetAddress;
                 },
-                zip: function() {
+                zip() {
                     return this.userInfo.zip;
                 }
             },
         methods: {
             ...mapActions('account', ['changePassword', 'getUserInfo', 'logout']),
+            ...mapActions('alert', ['clear', 'error', 'success']),
             ...mapActions('common', ['setNewHeading']),
-            handleFileUpload: function() {
+            closeDialog() {
+                this.clear();
+                this.dialog = false;
+            },
+            dialogAction() {
+                if (this.action === 'editProfile') {
+                    this.saveProfile();
+                } else {
+                    this.submitNewPassword();
+                }
+            },
+            disableDialogSubmission() {
+                if (this.action === 'editProfile') {
+                    return !this.profileFormValid;
+                } else {
+                    return !this.passwordFormValid;
+                }
+            },
+            handleFileUpload() {
                 this.file = this.$refs.file.files[0];
                 let reader  = new FileReader();
                 reader.addEventListener("load", function () {
@@ -266,28 +293,47 @@
                     }
                 }
             },
-            openFileUpload: function() {
+            openFileUpload() {
                 this.$refs.file.click();
             },
-            saveProfile: function() {
+            saveProfile() {
                 // TODO
-                console.log('saveProfile');
-                console.log(this.profileForm);
+                this.clear();
+                let errorMessage = '';
+                if (this.profileForm.phone.length !== 10) {
+                    errorMessage += 'Phone number must be 10 digits long.\n';
+                } 
+                if (this.profileForm.zip.length !== 5) {
+                    errorMessage += 'Zip code must be 5 digits long.\n';
+                }
+                if (errorMessage.length > 0) {
+                    this.error(errorMessage);
+                } else {
+                    console.log('saveProfile');
+                    console.log(this.profileForm);
+                }
             },
-            showChangePassword: function() {
+            showChangePassword() {
+                this.clear();
                 this.dialog = true;
                 this.action = 'changePassword';
             },
-            showEditProfile: function() {
+            showEditProfile() {
+                this.clear();
                 Object.assign(this.profileForm, this.userInfo);
                 this.dialog = true;
                 this.action = 'editProfile';
             },            
-            submitNewPassword: function() {
-                this.changePassword({
-                    oldPassword: this.passwordOld,
-                    newPassword: this.passwordNew
-                });
+            submitNewPassword() {
+                if (this.passwordNew !== this.passwordNewCopy) {
+                    this.error('New passwords do not match');
+                } else {
+                    this.changePassword({
+                        oldPassword: this.passwordOld,
+                        newPassword: this.passwordNew
+                    });
+                    this.success('Your password was successfully changed')
+                }
             }
         }
     }

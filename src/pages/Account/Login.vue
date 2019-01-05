@@ -3,10 +3,11 @@
         <v-container fluid fill-height text-xs-center>
             <v-layout align-center justify-center>
                 <v-flex xs-12>
-                    <h1 style="color:#002147">Login</h1>
+                    <h1>Login</h1>
                     <br />
                     <v-form ref="form" v-model="valid">
                         <v-text-field
+                            color="white"
                             prepend-icon="fa-envelope"
                             v-model="email"
                             label="Email"
@@ -15,6 +16,7 @@
                             required>
                         </v-text-field>
                         <v-text-field
+                            color="white"
                             prepend-icon="fa-lock"
                             v-model="password"
                             label="Password"
@@ -25,9 +27,9 @@
                     </v-form>
                     <div><v-btn color="primary" @click="handleSubmit" :disabled="!valid">Login</v-btn></div>
                     <br />
-                    <div><router-link to=''><span @click="forgotPasswordDialog = true">Forgot password</span></router-link></div>
+                    <div><router-link to='' style="color:white"><span @click="forgotPasswordDialog = true">Forgot password</span></router-link></div>
                     <br />
-                    <div><router-link to="/register">Don't have an account? Click here to register</router-link></div>
+                    <div><router-link to="/register" style="color:white">Don't have an account? Click here to register</router-link></div>
                 </v-flex>
             </v-layout>
         </v-container>

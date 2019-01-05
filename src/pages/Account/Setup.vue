@@ -14,6 +14,7 @@
                         <div class="text-xs-center"><p>Please change your password.</p></div>
                         <v-form ref="passwordForm" v-model="passwordFormValid">
                             <v-text-field
+                                color="white"
                                 v-model="password"
                                 :rules="[v => !!v || 'Password is required']"
                                 label="New Password"
@@ -21,15 +22,16 @@
                                 required>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="passwordCopy"
-                                :rules="[v => !!v || 'Password is required', v => (v && v === password) || 'Passwords do not match']"
+                                :rules="[v => !!v || 'Password is required']"
                                 label="Retype password"
                                 type="password"
                                 required>
                             </v-text-field>
                         </v-form>
                     </v-card-text>
-                    <div class="text-xs-center"><v-btn color="primary" @click="progress = 2" :disabled="!passwordFormValid">Next</v-btn></div>
+                    <div class="text-xs-center"><v-btn color="primary" @click="submitPasswordChange()" :disabled="!passwordFormValid">Next</v-btn></div>
                 </v-card>
             </v-stepper-content>
             <v-stepper-content step="2">
@@ -38,22 +40,26 @@
                         <div class="text-xs-center"><p>Please complete all fields not marked optional to move to the next step.</p></div>
                         <v-form ref="profileForm" v-model="profileFormValid">
                             <v-text-field
+                                color="white"
                                 v-model="firstName"
                                 :rules="[v => !!v || 'First name is required']"
                                 label="First Name"
                                 required>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="lastName"
                                 :rules="[v => !!v || 'Last name is required']"
                                 label="Last Name"
                                 required>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="nickName"
                                 label="Nickname (optional)">
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="phone"
                                 :rules="[v => !!v || 'Phone number is required', v => (v && v.length == 10) || 'Phone number must be valid']"
                                 label="Phone"
@@ -61,18 +67,21 @@
                                 required>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="streetAddress"
                                 :rules="[v => !!v || 'Street address is required']"
                                 label="Street Address"
                                 required>
                             </v-text-field>
                             <v-text-field
+                                color="white"
                                 v-model="city"
                                 :rules="[v => !!v || 'City is required']"
                                 label="City"
                                 required>
                             </v-text-field>
                             <v-select
+                                color="white"
                                 v-model="state"
                                 :items="stateList"
                                 :rules="[v => !!v || 'State is required']"
@@ -80,6 +89,7 @@
                                 required>
                             </v-select>
                             <v-text-field
+                                color="white"
                                 v-model="zip"
                                 :rules="[v => !!v || 'Zip is required', v => (v && v.length == 5) || 'Zip code must be valid']"
                                 label="Zip Code"
@@ -88,7 +98,7 @@
                             </v-text-field>
                         </v-form>
                         <div class="text-xs-center">
-                            <v-btn color="secondary" @click="progress = 2">Back</v-btn>
+                            <v-btn color="secondary" @click="progress = 1">Back</v-btn>
                             <v-btn color="primary" @click="progress = 3" :disabled="!profileFormValid">Next</v-btn>
                         </div>
                     </v-card-text>
@@ -139,7 +149,8 @@
         },
         methods: {
             ...mapActions({
-                createProfile: 'account/createProfile'
+                createProfile: 'account/createProfile',
+                error: 'alert/error'
             }),
             handleFileUpload: function() {
                 this.file = this.$refs.file.files[0];
@@ -160,6 +171,13 @@
                 // TODO
                 const data = {};
                 this.createProfile(data);
+            },
+            submitPasswordChange: function() {
+                if (this.password !== this.passwordCopy) {
+                    this.error('Passwords do not match.');
+                } else {
+                    this.progress = 2;
+                }
             }
         }
     }

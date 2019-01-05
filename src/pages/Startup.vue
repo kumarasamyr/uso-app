@@ -2,7 +2,7 @@
     <v-container fill-height text-xs-center>
         <v-layout row wrap align-center>
             <v-flex xs-12>
-                <h1 style="color:#002147">Welcome to Reset</h1>
+                <h1>Welcome to Reset</h1>
                 <br /><br />
                 <img width="75%" v-bind:src="logo" />
                 <br /><br /><br />
