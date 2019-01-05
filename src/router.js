@@ -48,6 +48,11 @@ const router = new Router({
       component: () => import("./pages/Events/Feedback.vue")
     },
     {
+      path: "/events/progress",
+      name: "progress",
+      component: () => import("./pages/Events/MyProgress.vue")
+    },
+    {
       path: "/faq",
       name: "faq",
       component: () => import("./pages/Info/Faq.vue")
@@ -78,6 +83,11 @@ const router = new Router({
       path: "/session-info",
       name: "session-info",
       component: () => import("./pages/Session/SessionInfo/SessionInfo.vue")
+    },
+    {
+      path: "/take-notes",
+      name: "take-notes",
+      component: () => import("./pages/Session/Notes/TakeNotes.vue")
     },
     {
       path: '/setup',
