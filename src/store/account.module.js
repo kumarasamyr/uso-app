@@ -48,6 +48,16 @@ const actions = {
             }
         );
     },
+    getNotifications() {
+        // TODO
+        userService.getNotifications().then(
+            response => {
+                return response.data;
+            }, error => {
+                Vue.$log.error(error.message);
+            }
+        )
+    },
     getUserInfo({commit, dispatch}) {
         userService.getUserInfo().then(
             response => {

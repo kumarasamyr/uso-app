@@ -3,7 +3,9 @@
     <v-btn v-if="showBackButton" fab small color="primary" :to="backlink">
       <v-icon style="height:auto;width:auto" small>fa-chevron-left</v-icon>
     </v-btn>
-    <img v-if="!showBackButton" class height="55px" src="../assets/uso-logo.svg">
+    <v-btn v-if="!showBackButton" fab small color="primary" to="/">
+      <v-icon style="height:autho; width:auto;" small>fa-home</v-icon>
+    </v-btn>
     <v-spacer></v-spacer>
     <v-toolbar-title>{{heading}}</v-toolbar-title>
     <v-spacer></v-spacer>

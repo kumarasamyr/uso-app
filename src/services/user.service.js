@@ -19,6 +19,10 @@ function forgotPassword(data) {
     console.log(data);
 }
 
+function getNotifications() {
+    return request.get(baseUrl + `/users/${store.state.account.userId}/notifications`);
+}
+
 function getUserInfo() {
     return request.get(baseUrl + `/users/${store.state.account.userId}`);
 }
@@ -41,6 +45,7 @@ export const userService = {
     changePassword,
     createProfile,
     forgotPassword,
+    getNotifications,
     getUserInfo,
     login,
     register

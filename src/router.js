@@ -1,4 +1,3 @@
-import EventList from "./pages/Events/EventList.vue";
 import Router from "vue-router";
 import store from './store';
 import Vue from "vue";
@@ -19,8 +18,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: EventList
+      redirect: '/events'
     },
     {
       path: "/agenda",
