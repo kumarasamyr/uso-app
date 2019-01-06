@@ -6,6 +6,10 @@ import { isNullOrUndefined } from "util";
 
 Vue.use(Router);
 
+function alwaysDirect(to, from, next) {
+  next();
+}
+
 function noAuth(to, from, next) {
   if (store.state.account.status.loggedIn) {
     next('/');
@@ -53,7 +57,8 @@ const router = new Router({
     {
       path: "/faq",
       name: "faq",
-      component: () => import("./pages/Info/Faq.vue")
+      component: () => import("./pages/Info/Faq.vue"),
+      beforeEnter: alwaysDirect
     },
     {
       path: '/login',

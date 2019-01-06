@@ -48,6 +48,16 @@ const actions = {
             }
         );
     },
+    getBookmarks() {
+        // TODO
+        userService.getBookmarks().then(
+            response => {
+                return response.data;
+            }, error => {
+                Vue.$log.error(error.message);
+            }
+        )
+    },
     getNotifications() {
         // TODO
         userService.getNotifications().then(

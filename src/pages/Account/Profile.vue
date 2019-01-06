@@ -252,7 +252,8 @@
                     return this.profileForm.profileUrl || require('../../assets/blank-profile.png');
                 },
                 profileImage() {
-                    return this.userInfo.profileUrl || require('../../assets/blank-profile.png');
+                    return (this.userInfo && this.userInfo.profileUrl) ? this.userInfo.profileUrl :
+                            require('../../assets/blank-profile.png');
                 },
                 profileStatus() {
                     return this.userInfo.profilePublic ? 'public' : 'private';

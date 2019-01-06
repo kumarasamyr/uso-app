@@ -19,6 +19,10 @@ function forgotPassword(data) {
     console.log(data);
 }
 
+function getBookmarks() {
+    return request.get(baseUrl + `/users/${store.state.account.userId}/bookmarks`);
+}
+
 function getNotifications() {
     return request.get(baseUrl + `/users/${store.state.account.userId}/notifications`);
 }
@@ -45,6 +49,7 @@ export const userService = {
     changePassword,
     createProfile,
     forgotPassword,
+    getBookmarks,
     getNotifications,
     getUserInfo,
     login,
