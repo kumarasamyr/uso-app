@@ -125,7 +125,6 @@ router.beforeEach((to, from, next) => {
 
 router.beforeResolve((to, from, next) => {
   store.dispatch('alert/clear').then(() => {
-    store.dispatch('common/setNewBacklink', from.path);
     store.dispatch('common/setShowBackButton', false);
     store.dispatch('common/setNewHeading', '');
     next();

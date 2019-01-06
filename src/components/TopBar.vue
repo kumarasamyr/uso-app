@@ -7,9 +7,6 @@
     <v-spacer></v-spacer>
     <v-toolbar-title>{{heading}}</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn fab small color="primary" to="/search">
-      <v-icon style="height:auto;width:auto" small>fa-search</v-icon>
-    </v-btn>
     <v-btn fab small color="primary" to="/faq">
       <v-icon style="height:auto;width:auto" small>fa-info</v-icon>
     </v-btn>
