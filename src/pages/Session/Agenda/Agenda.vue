@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     ...mapActions('common', ['setNewHeading', 'setShowBackButton', 'setNewBacklink']),
-    ...mapActions("sessions", ["selectSession"]),
+    ...mapActions("sessions", ["setSelectedSession"]),
     fetchSessions() {
       sessionsService.getSessions(this.selectedEvent.event_id).then(res => {
         this.sessions = res["data"];
