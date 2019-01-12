@@ -87,8 +87,8 @@ const actions = {
     login({commit, dispatch}, {email, password}) {
         dispatch('alert/clear', null, {root: true});
         const data = {
-            password: password,
-            userid: email
+            emailAddress: email,
+            password: password
         };
         userService.login(data).then(
             response => {

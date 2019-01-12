@@ -39,9 +39,6 @@ function login(data) {
 }
 
 function register(data) {
-    if (!isNaN(parseInt(data.userid))) {
-        data.userid = parseInt(data.userid);
-    }
     return request.post(baseUrl + '/users', data)
 }
 
