@@ -30,6 +30,8 @@
                     <div><router-link to='' style="color:white"><span @click="forgotPasswordDialog = true">Forgot password</span></router-link></div>
                     <br />
                     <div><router-link to="/register" style="color:white">Don't have an account? Click here to register</router-link></div>
+                    <br />
+                    <v-btn @click="autoLogin()">Auto Login</v-btn>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -85,6 +87,11 @@
         },
         methods: {
             ...mapActions('account', ['login']),
+            autoLogin() {
+                this.email = 'dbvows@gmail.com';
+                this.password = 'reset2018';
+                this.handleSubmit();
+            },
             forgotPassword() {
                 // TODO
                 console.log('forgot password');

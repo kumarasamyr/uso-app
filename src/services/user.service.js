@@ -19,6 +19,14 @@ function forgotPassword(data) {
     console.log(data);
 }
 
+function getBookmarks() {
+    return request.get(baseUrl + `/users/${store.state.account.userId}/bookmarks`);
+}
+
+function getNotifications() {
+    return request.get(baseUrl + `/users/${store.state.account.userId}/notifications`);
+}
+
 function getUserInfo() {
     return request.get(baseUrl + `/users/${store.state.account.userId}`);
 }
@@ -31,9 +39,6 @@ function login(data) {
 }
 
 function register(data) {
-    if (!isNaN(parseInt(data.userid))) {
-        data.userid = parseInt(data.userid);
-    }
     return request.post(baseUrl + '/users', data)
 }
 
@@ -41,6 +46,8 @@ export const userService = {
     changePassword,
     createProfile,
     forgotPassword,
+    getBookmarks,
+    getNotifications,
     getUserInfo,
     login,
     register

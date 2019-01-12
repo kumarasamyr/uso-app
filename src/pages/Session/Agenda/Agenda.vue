@@ -6,7 +6,7 @@
           <SessionCard
             :session="session"
             :event="selectedEvent"
-            v-on:click="selectSession(session)"
+            @click.native="selectSession(session)"
           ></SessionCard>
         </v-flex>
       </v-layout>
@@ -32,20 +32,21 @@ export default {
     this.fetchSessions();
     this.setNewHeading('Agenda');
     this.setShowBackButton(true);
+    this.setNewBacklink('/event/details');
   },
   components: {
     SessionCard
   },
   methods: {
-    ...mapActions('common', ['setNewHeading', 'setShowBackButton']),
-    ...mapActions("sessions", ["selectSession"]),
+    ...mapActions('common', ['setNewHeading', 'setShowBackButton', 'setNewBacklink']),
+    ...mapActions("sessions", ["setSelectedSession"]),
     fetchSessions() {
       sessionsService.getSessions(this.selectedEvent.event_id).then(res => {
         this.sessions = res["data"];
       });
     },
     selectSession(session) {
-      this.selectSession(session);
+      this.setSelectedSession(session);
       this.$router.push({ path: "session-info" });
     }
   }

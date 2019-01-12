@@ -1,4 +1,3 @@
-import EventList from "./pages/Events/EventList.vue";
 import Router from "vue-router";
 import store from './store';
 import Vue from "vue";
@@ -6,6 +5,10 @@ import { account } from './store/account.module';
 import { isNullOrUndefined } from "util";
 
 Vue.use(Router);
+
+function alwaysDirect(to, from, next) {
+  next();
+}
 
 function noAuth(to, from, next) {
   if (store.state.account.status.loggedIn) {
@@ -19,8 +22,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: EventList
+      redirect: '/events'
     },
     {
       path: "/agenda",
@@ -55,7 +57,8 @@ const router = new Router({
     {
       path: "/faq",
       name: "faq",
-      component: () => import("./pages/Info/Faq.vue")
+      component: () => import("./pages/Info/Faq.vue"),
+      beforeEnter: alwaysDirect
     },
     {
       path: '/login',
@@ -125,7 +128,6 @@ router.beforeEach((to, from, next) => {
 
 router.beforeResolve((to, from, next) => {
   store.dispatch('alert/clear').then(() => {
-    store.dispatch('common/setNewBacklink', from.path);
     store.dispatch('common/setShowBackButton', false);
     store.dispatch('common/setNewHeading', '');
     next();

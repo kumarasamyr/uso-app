@@ -89,10 +89,11 @@ export default {
     this.setEventDetails();
     this.setNewHeading(this.selectedEvent.name);
     this.setShowBackButton(true);
+    this.setNewBacklink('/events');
   },
 
   methods: {
-    ...mapActions('common', ['setNewHeading', 'setShowBackButton']),
+    ...mapActions('common', ['setNewHeading', 'setShowBackButton', 'setNewBacklink']),
     setEventDetails() {
       this.eventLocationString = `${this.selectedEvent.venueName}, ${
         this.selectedEvent.venueAddress1
