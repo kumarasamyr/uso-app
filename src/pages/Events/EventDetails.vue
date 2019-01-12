@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout class="primary white--text" row>
+    <v-layout class="primary white--text location-bar" row>
       <v-flex xs10>
         <v-card-text class="event-location">
           <span>{{eventLocationString}}</span>
@@ -15,9 +15,10 @@
 
     <v-container grid-list-xl>
       <v-layout row wrap>
-        <v-flex xs6>
-          <v-card class="elevation-5 primary">
+        <v-flex xs6 v-for="(option, index) in options" :key="index">
+          <v-card class="elevation-5 primary" :to="option.route">
             <v-flex text-xs-center>
+
               <v-icon x-large right>fa-book</v-icon>
               <div>Materials</div>
             </v-flex>
@@ -70,14 +71,15 @@
 </template>
 
 <script>
-import topBar from "../../components/TopBar";
 import { mapActions, mapState } from "vuex";
+import { eventOptions } from "../../utils/constants";
 export default {
   // TODO: clean up html
   data() {
     return {
       eventLocationString: "",
-      eventTimeString: ""
+      eventTimeString: "",
+      options: eventOptions
     };
   },
 
@@ -102,15 +104,16 @@ export default {
         this.selectedEvent.startTime
       } to ${this.selectedEvent.endTime}`;
     }
-  },
-  components: {
-    topBar
   }
 
 };
 </script>
 
 <style>
+
+.location-bar {
+  margin: 10px 5px 5px 5px;
+}
 p {
   margin-bottom: 0px;
 }

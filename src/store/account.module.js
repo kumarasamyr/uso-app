@@ -98,7 +98,7 @@ const actions = {
                     dispatch('alert/error', 'Email or password is incorrect', {root: true});
                 } else {
                     Vue.$log.info('Successful login for ' + email);
-                    commit('loginSuccess', response.data["user_id "]); 
+                    commit('loginSuccess', response.data["user_id "]);
                     dispatch('getUserInfo');
                     router.push('/');
                 }
@@ -118,8 +118,8 @@ const actions = {
     register({commit, dispatch}, {email, password}) {
         dispatch('alert/clear', null, {root: true});
         const data = {
-            temporaryPassword: password,
-            userid: email
+            emailAddress: email,
+            temporaryPassword: password
         };
         userService.register(data).then(
             response => {

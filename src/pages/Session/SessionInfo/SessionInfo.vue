@@ -24,29 +24,29 @@
          </v-flex>
         </v-layout>
         <v-layout class="session-info-actions">
-            <v-flex xs6 offset-xs1>
-              Speaker image here
+            <v-flex xs4 offset-xs1>
+              Speaker image
               <!-- TODO: need to get speaker name, just getting speaker id now -->
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs8>
+              <h3>Speaker: Robert O'Neill</h3>
+              <!-- TODO: need to get speaker name, just getting speaker id now -->
+            </v-flex>
+        </v-layout>
+        <br>
+        <v-layout class="session-info-speaker" row wrap>
+            <v-flex xs4 offset-xs4>
                 <v-btn class="primary elevation-5" v-on:click="callActivity('like')" icon>
                     <v-icon small color="white">fas fa-thumbs-up</v-icon>
                 </v-btn>
                 {{likeCount}}
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs4>
                 <v-btn class="primary elevation-5" v-on:click="callActivity('bookmark')" icon>
                     <v-icon small color="white">fas fa-bookmark</v-icon>
                 </v-btn>
                 {{bookmarkCount}}
             </v-flex>
-        </v-layout>
-        <br>
-        <v-layout class="session-info-speaker" row wrap>
-          <v-flex xs8>
-            <h3>Speaker: Robert O'Neill</h3>
-            <!-- TODO: need to get speaker name, just getting speaker id now -->
-          </v-flex>
         </v-layout>
         <br>
         <v-layout class="session-info-buttons" row wrap>
@@ -159,7 +159,7 @@ export default {
 
   .session-info-container {
     /* position: relative; */
-    height: 100%;
+    height: calc(100vh * .85);
   }
 
   .session-info-buttons {
