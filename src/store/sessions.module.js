@@ -9,8 +9,8 @@ const mutations = {
 }
 
 const actions = {
-    selectedSession({commit, state}, session) {
-        commit('selectSession', state, session)
+    setSelectedSession({commit}, session) {
+        commit('selectSession', session)
     }
 }
 

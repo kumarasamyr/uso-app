@@ -7,7 +7,7 @@
         <router-view/>
       </transition>
     </v-content>
-    <bottom-bar></bottom-bar>
+    <bottom-bar v-if="loggedIn"></bottom-bar>
   </v-app>
 </template>
 
@@ -26,6 +26,7 @@ export default {
   },
   computed: {
     ...mapState({
+      loggedIn: state => state.account.status.loggedIn,
       alert: state => state.alert
     })
   },

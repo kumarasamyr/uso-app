@@ -1,116 +1,76 @@
 <template>
-    <v-card class="white--text session-card">
-            <v-card-title primary-title>
-                <v-flex xs3>
-                  {{session.startTime}}
-                </v-flex>
-                <v-flex xs9>
-                  <div class="headline">{{session.name}}</div>
-                </v-flex>
-                <v-flex xs3>
-                  {{session.endTime}}
-                </v-flex>
-                <v-flex xs9>
-                  <div>{{session.location}}</div>
-                </v-flex>
-            </v-card-title>
-        <v-card-actions>
-            <v-flex xs3 offset-xs6>
-                <v-btn v-on:click="callActivity('like')" icon>
-                    <v-icon color="white">fas fa-thumbs-up</v-icon>
-                </v-btn>
-                {{likeCount}}
-            </v-flex>
-            <v-flex xs3>
-                <v-btn v-on:click="callActivity('bookmark')" icon>
-                    <v-icon color="white">fas fa-bookmark</v-icon>
-                </v-btn>
-                {{bookmarkCount}}
-            </v-flex>
-        </v-card-actions>
-    </v-card>
+    <v-list three-line class="primary">
+        <v-list-tile>
+            <v-list-tile-content>
+                <v-list-tile-title>{{session.name}}</v-list-tile-title>
+                <v-list-tile-sub-title>Speaker Name</v-list-tile-sub-title>
+                <v-list-tile-sub-title>{{session.startTime}} - {{session.endTime}} | {{session.location}}</v-list-tile-sub-title>
+            </v-list-tile-content>
+            <v-list-tile-avatar>
+                <v-badge>
+                    <v-btn icon>
+                        <v-icon small color="white">fas fa-thumbs-up</v-icon>
+                        {{likeCount}}
+                    </v-btn>
+                </v-badge>
+            </v-list-tile-avatar>
+        </v-list-tile>
+    </v-list> 
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { activityService } from '../../../services'
-import { CONFIG } from '../../../config/config'
+import { mapState } from "vuex";
+import { activityService } from "../../../services";
+import { CONFIG } from "../../../config/config";
 
 export default {
-    data() {
-        return {
-            likeCount: 0,
-            bookmarkCount: 0,
-            activityState: {like: false, bookmark: false},
-            ACTIVITY_DETAILS: {
-                source: CONFIG.sessionDetails.source,
-                sourceId: this.session.sessionId,
-            }
-        }
-    },
+  data() {
+    return {
+      likeCount: 0,
+      bookmarkCount: 0,
+      activityState: { like: false, bookmark: false },
+      ACTIVITY_DETAILS: {
+        source: CONFIG.sessionDetails.source,
+        sourceId: this.session.sessionId
+      }
+    };
+  },
 
-    props: ['session', 'event'],
+  props: ["session", "event"],
 
-    computed: {
-        ...mapState('account', [('user')]),
-        
-    },
+  computed: {
+    ...mapState("account", ["userId"])
+  },
 
-    created() {
-        this.fetchLikes()
-        this.fetchBookmarks()
-    },
+  created() {
+    this.fetchLikes();
+  },
 
-    methods: {
-        fetchLikes() {
-            let details = {
-                ...this.ACTIVITY_DETAILS,
-                type: 'like'
-            }
-            activityService.getActivity(this.user, this.event, details).then(res => {
-                //TODO: confirm with backend what field for number of likes is
-                this.likeCount = res['data'].likes
-            })
-        },
-
-        fetchBookmarks() {
-            let details = {
-                ...this.ACTIVITY_DETAILS,
-                type: 'bookmark'
-            }
-            activityService.getActivity(this.user, this.event, details).then(res => {
-                //TODO: confirm with backend what field for number of bookmarks is
-                this.bookmarkCount = res['data'].likes
-            })
-        },
-
-        callActivity(activityType) {
-            let details = {
-                ...this.ACTIVITY_DETAILS,
-                type: activityType
-            }
-             if (this.activityState[activityType]) {
-                 activityService.undoActivity(this.user, this.event, details).then(this.toggleActivity(activityType))
-             } else {
-                 activityService.updateActivity(this.user, this.event, details).then(this.toggleActivity(activityType))
-             }
-        },
-
-        toggleActivity(activityType) {
-            this.activityState[activityType] = !this.activityState[activityType]
-        }
+  methods: {
+    fetchLikes() {
+      let details = {
+        ...this.ACTIVITY_DETAILS,
+        type: "like"
+      };
+      activityService
+        .getActivity(this.userId, this.event, details)
+        .then(res => {
+          //TODO: confirm with backend what field for number of likes is
+          this.likeCount = res["data"].likes;
+        });
     }
+  }
 };
 </script>
 
 <style scoped>
-    .session-card {
-        border-radius: 10px;
-    }
+.session-card {
+  border-radius: 10px;
+}
 
-    .headline {
-        overflow: hidden;
-        text-overflow: ellipsis; 
-        white-space: nowrap;
-    }
+.headline {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 </style>

@@ -1,16 +1,8 @@
 <template>
   <div>
-    <top-bar heading="RESET" backlink></top-bar>
     <v-layout row>
       <v-flex>
         <v-card class="elevation-0">
-          <v-toolbar color="primary" dark>
-            <v-toolbar-title>Help and FAQ</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn icon>
-              <v-icon>fa-search</v-icon>
-            </v-btn>
-          </v-toolbar>
           <v-list>
             <v-list-group v-for="item in items" v-model="item.active" :key="item.title" no-action>
               <v-list-tile slot="activator">
@@ -70,18 +62,14 @@
           </v-list>
           <v-flex>
             <v-card>
-              <v-list-tile>Our Sponsors</v-list-tile>
+              <v-list-tile>App Created By</v-list-tile>
 
               <v-container grid-list-sm fluid>
                 <v-layout row wrap>
-                  <v-flex v-for="n in 3" :key="n" xs4>
+                  <v-flex>
                     <v-card flat tile class="center">
                       <v-img
-                        :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-                        :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
-                        aspect-ratio="1"
-                        class="grey lighten-2"
-                        width="100"
+                        :src="getImage"
                       >
                         <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
                           <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
@@ -99,7 +87,8 @@
   </div>
 </template>
 <script>
-import topBar from "../../components/TopBar";
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -149,10 +138,16 @@ export default {
       ]
     };
   },
-  components: {
-    topBar
+  computed: {
+    getImage() {
+      return require('../../assets/DB-Vows-banner.png');
+    }
+  },
+  created() {
+    this.setNewHeading('Help & FAQ');
   },
   methods: {
+    ...mapActions('common', ['setNewHeading']),
     select() {
       console.log('clicked');
     }

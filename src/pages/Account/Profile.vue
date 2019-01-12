@@ -1,10 +1,10 @@
 <template>
     <v-container>
-        <v-card-title>
+        <v-card-title class="pt-0">
             <v-spacer></v-spacer>
             <v-menu offset-y>
             <v-btn slot="activator" icon>
-                <v-icon>fa-cog</v-icon>
+                <v-icon large>fa-cog</v-icon>
             </v-btn>
             <v-list>
                 <v-list-tile @click="showEditProfile()">
@@ -26,7 +26,7 @@
         </v-flex>
         <v-layout row>
             <v-flex xs12 sm12>
-                <v-list two-line>
+                <v-list two-line class="primary">
                     <v-list-tile>
                         <v-list-tile-action>
                             <v-icon color="white">fa-phone</v-icon>
@@ -54,6 +54,7 @@
                             <v-list-tile-sub-title>{{city}}, {{state}} {{zip}}</v-list-tile-sub-title>
                         </v-list-tile-content>
                     </v-list-tile>
+                    <v-divider inset></v-divider>
                     <v-list-tile>
                         <v-list-tile-action>
                             <v-icon color="white">fa-user-secret</v-icon>
@@ -149,7 +150,7 @@
                             </v-text-field>
                             <v-switch
                                 color="white"
-                                :label="`Your profile is ${profileStatus}`" 
+                                :label="`Your profile is ${profileStatusForm}`" 
                                 v-model="profileForm.profilePublic">
                             </v-switch>
                         </v-form>
@@ -189,6 +190,13 @@
         </v-layout>
     </v-container>
 </template>
+
+<style scoped>
+    .v-divider {
+        /* filter: brightness(100%); */
+        border-color: pink;
+    }
+</style>
 
 <script>
     import { STATELIST } from '../../utils/constants.js';
@@ -244,10 +252,14 @@
                     return this.profileForm.profileUrl || require('../../assets/blank-profile.png');
                 },
                 profileImage() {
-                    return this.userInfo.profileUrl || require('../../assets/blank-profile.png');
+                    return (this.userInfo && this.userInfo.profileUrl) ? this.userInfo.profileUrl :
+                            require('../../assets/blank-profile.png');
                 },
                 profileStatus() {
                     return this.userInfo.profilePublic ? 'public' : 'private';
+                },
+                profileStatusForm() {
+                    return this.profileForm.profilePublic ? 'public' : 'private';
                 },
                 state() {
                     return this.userInfo.state;

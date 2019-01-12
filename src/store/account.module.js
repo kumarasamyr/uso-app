@@ -48,6 +48,26 @@ const actions = {
             }
         );
     },
+    getBookmarks() {
+        // TODO
+        userService.getBookmarks().then(
+            response => {
+                return response.data;
+            }, error => {
+                Vue.$log.error(error.message);
+            }
+        )
+    },
+    getNotifications() {
+        // TODO
+        userService.getNotifications().then(
+            response => {
+                return response.data;
+            }, error => {
+                Vue.$log.error(error.message);
+            }
+        )
+    },
     getUserInfo({commit, dispatch}) {
         userService.getUserInfo().then(
             response => {
@@ -67,8 +87,8 @@ const actions = {
     login({commit, dispatch}, {email, password}) {
         dispatch('alert/clear', null, {root: true});
         const data = {
-            password: password,
-            userid: email
+            emailAddress: email,
+            password: password
         };
         userService.login(data).then(
             response => {
