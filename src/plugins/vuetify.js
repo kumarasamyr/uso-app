@@ -22,46 +22,25 @@ import {
   VSelect,
   VSnackbar,
   VStepper,
-  VSubheader,
   VSwitch,
   VTextField,
   VToolbar,
-<<<<<<< HEAD
-  VCard,
-  VBottomNav,
-  VBadge,
-  VImg,
   VChip,
-  VAvatar,
   VSubheader,
-  transitions
+  Vuetify
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
-=======
-  Vuetify
-} from 'vuetify';
-import 'vuetify/src/stylus/app.styl';
->>>>>>> a33bc1d57aca425110da051fefe4d3a6bd6caa05
-
 Vue.use(Vuetify, {
   components: {
     transitions,
     VAlert,
     VApp,
     VAvatar,
-    VBadge,
-    VBottomNav,
     VBtn,
     VCard,
-<<<<<<< HEAD
     VBottomNav,
     VBadge,
-    VImg,
     VChip,
-    VAvatar,
-    VSubheader,
-    transitions
-=======
     VDataTable,
     VDialog,
     VDivider,
@@ -80,7 +59,6 @@ Vue.use(Vuetify, {
     VSwitch,
     VTextField,
     VToolbar
->>>>>>> a33bc1d57aca425110da051fefe4d3a6bd6caa05
   },
   theme: {
     primary: '#bb133e',

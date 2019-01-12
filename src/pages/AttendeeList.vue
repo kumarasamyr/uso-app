@@ -1,83 +1,50 @@
 
-      <template>
+
+
+<template>
+  <div>
+    <v-container fluid grid-list-sm>
+      <v-layout v-for="attendee in attendeeList" :key="attendee.attendeeId" row wrap>
         
-        <v-container fluid grid-list-sm>
-          <h1> Attendee List</h1>
-          <h1>A</h1>
-          <v-layout row wrap>
-          
-            <v-flex xs4>
-              <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Joseph</div></v-img>
-            </v-flex>
+        <v-flex xs12>
+          <EventCard class="primary" v-bind:event="event" @click.native="clickEvent(event)"></EventCard>
+        </v-flex>
 
-            <v-flex xs4>
-              <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Kumar</div></v-img>
-            </v-flex>
-
-            <v-flex xs4>
-              <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Alen</div></v-img>
-            </v-flex>
-
-            <v-flex xs4>
-              <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Alen</div></v-img>
-            </v-flex>
-
-          <v-flex xs4>
-              <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Joseph</div></v-img>
-            </v-flex>
-
-        </v-layout>
-
-        <h1>B</h1>
-        <v-layout row wrap>
-          
-          <v-flex xs4>
-            <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Joseph</div></v-img>
-          </v-flex>
-
-          <v-flex xs4>
-            <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Kumar</div></v-img>
-          </v-flex>
-
-          <v-flex xs4>
-            <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Alen</div></v-img>
-          </v-flex>
-
-          <v-flex xs4>
-            <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Alen</div></v-img>
-          </v-flex>
-
-         <v-flex xs4>
-            <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Joseph</div></v-img>
-          </v-flex>
-
-        </v-layout>
+        <v-flex xs4>
+          <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">attendee.name</div></v-img>
+        </v-flex>
 
 
-        <h1>C</h1>
-        <v-layout row wrap>
-          
-          <v-flex xs4>
-            <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Joseph</div></v-img>
-          </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
+</template>
+      
+      
+      
 
-          <v-flex xs4>
-            <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Kumar</div></v-img>
-          </v-flex>
 
-          <v-flex xs4>
-            <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Alen</div></v-img>
-          </v-flex>
-
-          <v-flex xs4>
-            <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Alen</div></v-img>
-          </v-flex>
-
-         <v-flex xs4>
-            <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"><div class="fill-height bottom-gradient">Joseph</div></v-img>
-          </v-flex>
-
-        </v-layout>
-      </v-container>
-    </template>
+    <script>
+        import { mapActions, mapState } from 'vuex';
+        export default {
+            data () {
+                return {
+                    attendeeList:[]
+                }
+            },
+            created() {
+               this.setNewHeading('Attendee List');
+               this.attendeeList = this.getAttendees(event.eventId);
+               console.log(event);
+            },
+            computed: {
+                ...mapState({
+                    event: state => state.selectedEvent,
+                }),
+            },
+            methods: {
+                ...mapActions('events', ['getAttendees']),
+            }
+        }
+    </script>
   

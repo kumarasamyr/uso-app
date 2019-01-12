@@ -1,3 +1,5 @@
+import { attendeesService } from '../services';
+
 const state = {
     selectedEvent: {}
 }
@@ -11,6 +13,15 @@ const mutations = {
 const actions = {
     selectEvent({commit}, event) {
         commit('selectEvent', event)
+    },
+    getAttendees({}, eventId) {
+        attendeesService.getAttendees(eventId).then (
+            response => {
+                return response;
+            }, error => {
+                Vue.$log.error(error.message);
+            }
+        )
     }
 }
 

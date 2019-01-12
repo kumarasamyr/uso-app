@@ -57,7 +57,7 @@
           </v-card>
         </v-flex>
         <v-flex xs6>
-          <v-card class="elevation-5 primary">
+          <v-card class="elevation-5 primary" to="/attendeelist">
             <v-flex text-xs-center>
               <v-icon x-large white right>fa-users</v-icon>
               <div>Attendees</div>

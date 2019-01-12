@@ -43,7 +43,6 @@ const router = new Router({
       component: () => import("./pages/Events/EventDetails.vue")
     },
     {
-<<<<<<< HEAD
       path: '/speakerbio',
       name: 'speakerbio',
       component: () => import('./pages/Speakerbio.vue')
@@ -58,7 +57,7 @@ const router = new Router({
       name: 'eventMaterialHome',
       component: () => import('./pages/EventMaterialHome.vue')
     },
-=======
+    {
       path: "/events/feedback",
       name: "feedback",
       component: () => import("./pages/Events/Feedback.vue")
@@ -123,7 +122,6 @@ const router = new Router({
       component: () => import('./pages/Startup.vue'),
       beforeEnter: noAuth
     }
->>>>>>> a33bc1d57aca425110da051fefe4d3a6bd6caa05
   ]
 });
 
