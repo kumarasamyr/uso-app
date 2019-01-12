@@ -98,7 +98,9 @@ const actions = {
                     dispatch('alert/error', 'Email or password is incorrect', {root: true});
                 } else {
                     Vue.$log.info('Successful login for ' + email);
+
                     commit('loginSuccess', response.data["user_id "]);
+
                     dispatch('getUserInfo');
                     router.push('/');
                 }
